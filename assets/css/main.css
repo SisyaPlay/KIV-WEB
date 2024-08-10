@@ -41,6 +41,22 @@ button:hover {
     min-width: 200px;
 }
 
+/* Стили для контейнера с чекбоксом и лейблом */
+.checkbox-container {
+    padding: 5px 5px;
+    font-weight: normal;
+    display: flex;
+    left: 0;
+    /*align-items: center;*/
+    margin-left: -125px;
+}
+
+/* Убираем отступы, чтобы чекбокс и лейбл были ближе друг к другу */
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+    margin-left: 0;
+}
+
 /* Стилизация формы */
 form {
     max-width: 400px;
@@ -64,6 +80,7 @@ form input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 form input[type="text"],
@@ -112,4 +129,47 @@ form button:hover {
 
 .fadeOut {
     opacity: 0;
+}
+
+/* Общее оформление полей с ошибками */
+.error {
+    position: relative;
+    margin-right: 10px;
+    border: 2px solid red;
+    background-color: #ffe6e6;
+    border-radius: 4px;
+}
+
+/* Восклицательный знак */
+.error::after {
+    content: '!';
+    position: absolute;
+    right: 30px; /* Отступ от правого края поля */
+    top: 30%;
+    transform: translateY(-50%);
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Сообщение об ошибке, скрытое по умолчанию */
+.error-message {
+    display: none;
+    position: absolute;
+    top: -30px; /* Отступ сверху */
+    right: 0;
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 100;
+}
+
+/* Отображение сообщения об ошибке при наведении */
+.error:hover .error-message {
+    display: block;
 }

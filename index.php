@@ -26,6 +26,12 @@
                         <input type="text" id="username" name="username" placeholder="Type your username">
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" placeholder="Type your password">
+
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="checkbox" name="checkbox">
+                            <label for="checkbox" class="checkbox-container">Remember me</label>
+                        </div>
+
                         <button type="submit">Submit</button>
                     </form>
                 </div>

@@ -20,22 +20,44 @@
         </div>
     </header>
 
-    <form action="vendor/signup.php" method="post">
+    <form id="signup-form" action="vendor/signup.php" method="post">
         <label>Username</label>
-        <input type="text" name="username" placeholder="Type your username">
+        <div class="input-wrapper">
+            <input type="text" name="username" id="username" placeholder="Type your username">
+            <span class="error-message" id="username-error">Username is required</span>
+        </div>
+
         <label>e-mail</label>
-        <input type="email" name="email" placeholder="Type your email">
+        <div class="input-wrapper">
+            <input type="email" name="email" id="email" placeholder="Type your email">
+            <span class="error-message" id="email-error">Email is required</span>
+        </div>
+
         <label>Password</label>
-        <input type="password" name="password" placeholder="Type your password">
-        <label>Comfirm password</label>
-        <input type="password" name="password_comfirm" placeholder="Comfirm your password">
+        <div class="input-wrapper">
+            <input type="password" name="password" id="password" placeholder="Type your password">
+            <span class="error-message" id="password-error">Password is required</span>
+        </div>
+
+        <label>Confirm password</label>
+        <div class="input-wrapper">
+            <input type="password" name="password_comfirm" id="password_comfirm" placeholder="Confirm your password">
+            <span class="error-message" id="password_comfirm-error">Password confirmation is required</span>
+        </div>
+
         <button type="submit">Sign up</button>
     </form>
-    <?php
-        if(@$_SESSION['massage']) {
-            echo '<p class="msg">' . $_SESSION['massage']. '</p>';
-        }
-        unset($_SESSION['massage']);
-    ?>
+
+    <!-- Включение JavaScript -->
+    <script src="assets/js/form-validation.js"></script>
+
+    <?php if(isset($_SESSION['errors'])): ?>
+        <script id="server-errors" type="application/json"><?= json_encode($_SESSION['errors']); ?></script>
+        <?php unset($_SESSION['errors']); ?>
+    <?php else: ?>
+        <script id="server-errors" type="application/json">[]</script>
+    <?php endif; ?>
+
+
 </body>
 </html>

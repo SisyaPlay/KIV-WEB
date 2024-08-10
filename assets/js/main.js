@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// Анимация окна "Зарегистрирован"
 window.onload = function() {
     var messageElement = document.getElementById('sessionMessage');
     if (messageElement) {
