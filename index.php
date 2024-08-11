@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-
+    <div class="background"></div>
     <!-- Заголовок -->
     <header>
         <div class="left-buttons">
@@ -23,9 +23,15 @@
                 <div class="dropdown-content" id="loginDropdown">
                     <form action="vendor/signin.php" method="post">
                         <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" placeholder="Type your username">
+                        <div class="input-wrapper">
+                            <input type="text" name="username" id="username" placeholder="Type your username">
+                            <span class="error-message" id="username-error">Username is required</span>
+                        </div>
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" placeholder="Type your password">
+                        <div class="input-wrapper">
+                            <input type="password" name="password" id="password" placeholder="Type your password">
+                            <span class="error-message" id="password-error">Password is required</span>
+                        </div>
 
                         <div class="checkbox-container">
                             <input type="checkbox" id="checkbox" name="checkbox">

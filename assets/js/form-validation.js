@@ -1,61 +1,56 @@
-// main.js
-
-document.getElementById('signup-form').addEventListener('submit', function (event) {
-    const username = document.getElementById('username');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const passwordConfirm = document.getElementById('password_comfirm');
-
-    let hasError = false;
-
-    // Сброс предыдущих ошибок
-    [username, email, password, passwordConfirm].forEach(input => {
-        input.parentElement.classList.remove('error');
-    });
-
-    if (username.value === '') {
-        hasError = true;
-        username.parentElement.classList.add('error');
-    }
-
-    if (email.value === '') {
-        hasError = true;
-        email.parentElement.classList.add('error');
-    }
-
-    if (password.value === '') {
-        hasError = true;
-        password.parentElement.classList.add('error');
-    }
-
-    if (passwordConfirm.value === '') {
-        hasError = true;
-        passwordConfirm.parentElement.classList.add('error');
-    }
-
-    if (password.value !== passwordConfirm.value) {
-        hasError = true;
-        passwordConfirm.parentElement.classList.add('error');
-        document.getElementById('password_comfirm-error').textContent = 'Passwords do not match';
-    }
-
-    if (hasError) {
-        event.preventDefault(); // Предотвратить отправку формы, если есть ошибки
-    }
-});
-
 document.addEventListener('DOMContentLoaded', function () {
-    const errors = JSON.parse(document.getElementById('server-errors').textContent || '[]');
+    const form = document.getElementById('signup-form');
+    const fields = form.querySelectorAll('input');
 
-    if (errors.length > 0) {
-        errors.forEach(error => {
-            const inputId = error.toLowerCase().split(' ')[0]; // Получаем название поля из сообщения об ошибке
-            const inputElement = document.getElementById(inputId);
+    form.addEventListener('submit', function (event) {
+        let isValid = true;
 
-            if (inputElement) {
-                inputElement.parentElement.classList.add('error');
-                document.getElementById(`${inputId}-error`).textContent = error;
+        fields.forEach(function (field) {
+            const errorElement = document.getElementById(field.id + '-error');
+            const exclamation = document.createElement('span');
+            exclamation.classList.add('exclamation');
+            exclamation.textContent = '!';
+
+            // Если поле пустое, показываем ошибку
+            if (field.value.trim() === '') {
+                field.classList.add('error');
+
+                // Проверяем, добавлен ли восклицательный знак, если нет, то добавляем
+                if (!field.parentNode.querySelector('.exclamation')) {
+                    field.parentNode.appendChild(exclamation);
+                }
+
+                errorElement.style.display = 'block';
+                isValid = false;
+            } else {
+                field.classList.remove('error');
+                errorElement.style.display = 'none';
+
+                // Удаляем восклицательный знак, если поле заполнено
+                const exclamationMark = field.parentNode.querySelector('.exclamation');
+                if (exclamationMark) {
+                    exclamationMark.remove();
+                }
             }
         });
-    }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+
+    // Убираем ошибку при вводе текста в поле
+    fields.forEach(function (field) {
+        field.addEventListener('input', function () {
+            if (field.classList.contains('error')) {
+                field.classList.remove('error');
+                const exclamationMark = field.parentNode.querySelector('.exclamation');
+                if (exclamationMark) {
+                    exclamationMark.remove();
+                }
+                const errorElement = document.getElementById(field.id + '-error');
+                errorElement.style.display = 'none';
+            }
+        });
+    });
 });

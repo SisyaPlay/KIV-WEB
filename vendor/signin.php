@@ -13,6 +13,10 @@
     $query = "SELECT * FROM users WHERE username='$username'";
     $result = mysqli_query($connect, $query);
 
+    if($username == "" || $password == ""){
+
+    }
+
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         $hash = $user['password'];

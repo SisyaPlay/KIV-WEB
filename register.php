@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-
+    <div class="background"></div>
     <!--  Заголовок -->
 
     <header>
