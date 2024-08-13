@@ -11,6 +11,7 @@
 </head>
 <body>
     <div class="background"></div>
+
     <!-- Заголовок -->
     <header>
         <div class="left-buttons">
@@ -21,11 +22,11 @@
             <div class="dropdown">
                 <button id="loginBtn">Login</button>
                 <div class="dropdown-content" id="loginDropdown">
-                    <form action="vendor/signin.php" method="post">
+                    <form id="loginForm" action="vendor/signin.php" method="post">
                         <label for="username">Username:</label>
                         <div class="input-wrapper">
                             <input type="text" name="username" id="username" placeholder="Type your username">
-                            <span class="error-message" id="username-error">Username is required</span>
+                            <span class="error-message" id="username-error">Username cannot be empty</span>
                         </div>
                         <label for="password">Password:</label>
                         <div class="input-wrapper">

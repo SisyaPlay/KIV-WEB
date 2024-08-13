@@ -3,35 +3,45 @@
     session_start();
     require_once "connect.php";
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-    // Предотвращение SQL инъекций
-    $username = mysqli_real_escape_string($connect, $username);
+    $errors = [];
 
-    // Запрос к базе данных для получения хэша пароля
-    $query = "SELECT * FROM users WHERE username='$username'";
-    $result = mysqli_query($connect, $query);
-
-    if($username == "" || $password == ""){
-
+    // Проверка на пустые поля
+    if (empty($username)) {
+        $errors[] = "Username cannot be empty";
+    }
+    if (empty($password)) {
+        $errors[] = "Password is required";
     }
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $user = mysqli_fetch_assoc($result);
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header('Location: ../index.php');
+        exit();
+    }
+
+    // Использование подготовленного запроса для предотвращения SQL-инъекций
+    $query = $connect->prepare("SELECT * FROM users WHERE username = ?");
+    $query->bind_param('s', $username);
+    $query->execute();
+    $result = $query->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        $user = $result->fetch_assoc();
         $hash = $user['password'];
 
         // Проверка пароля
         if (password_verify($password, $hash)) {
             // Пароль верный
             $_SESSION['registered'] = "You are logged in successfully";
-            header('Location: ../index.php');
         } else {
-            $_SESSION['massage'] = "Invalid username or password";
-            header('Location: ../index.php');
+            $_SESSION['errors'] = ["Invalid username or password"];
         }
     } else {
-        $_SESSION['massage'] = "Invalid username or password";
-            header('Location: ../index.php');
+        $_SESSION['errors'] = ["Invalid username or password"];
     }
 
+    header('Location: ../index.php');
+    exit();

@@ -20,7 +20,7 @@
         </div>
     </header>
 
-    <form id="signup-form" action="vendor/signup.php" method="post">
+    <form id="signupForm" action="vendor/signup.php" method="post">
         <label>Username</label>
         <div class="input-wrapper">
             <input type="text" name="username" id="username" placeholder="Type your username">
@@ -49,7 +49,7 @@
     </form>
 
     <!-- Включение JavaScript -->
-    <script src="assets/js/form-validation.js"></script>
+    <script src="assets/js/signupValidation.js"></script>
 
     <?php if(isset($_SESSION['errors'])): ?>
         <script id="server-errors" type="application/json"><?= json_encode($_SESSION['errors']); ?></script>

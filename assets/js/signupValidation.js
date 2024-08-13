@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('signup-form');
+    const form = document.getElementById('signupForm');
     const fields = form.querySelectorAll('input');
 
     form.addEventListener('submit', function (event) {
