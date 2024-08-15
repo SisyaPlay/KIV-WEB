@@ -24,25 +24,25 @@
         <label>Username</label>
         <div class="input-wrapper">
             <input type="text" name="username" id="username" placeholder="Type your username">
-            <span class="error-message" id="username-error">Username is required</span>
+            <span class="error-message" id="username-error"></span>
         </div>
 
         <label>e-mail</label>
         <div class="input-wrapper">
             <input type="email" name="email" id="email" placeholder="Type your email">
-            <span class="error-message" id="email-error">Email is required</span>
+            <span class="error-message" id="email-error"></span>
         </div>
 
         <label>Password</label>
         <div class="input-wrapper">
             <input type="password" name="password" id="password" placeholder="Type your password">
-            <span class="error-message" id="password-error">Password is required</span>
+            <span class="error-message" id="password-error"></span>
         </div>
 
         <label>Confirm password</label>
         <div class="input-wrapper">
             <input type="password" name="password_comfirm" id="password_comfirm" placeholder="Confirm your password">
-            <span class="error-message" id="password_comfirm-error">Password confirmation is required</span>
+            <span class="error-message" id="password_comfirm-error"></span>
         </div>
 
         <button type="submit">Sign up</button>

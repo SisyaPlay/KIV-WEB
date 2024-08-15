@@ -1,5 +1,4 @@
 <?php
-
     global $connect;
     session_start();
     require_once 'connect.php';
@@ -13,22 +12,22 @@
     $hasError = false;
     $errors = [];
 
-    if ($username === '') {
-    $hasError = true;
-    $errors[] = 'Username is required';
+    if (empty($username)) {
+        $hasError = true;
+        $errors[] = 'Username is required';
     }
 
-    if ($email === '') {
+    if (empty($email)) {
         $hasError = true;
         $errors[] = 'Email is required';
     }
 
-    if ($password === '') {
+    if (empty($password)) {
         $hasError = true;
         $errors[] = 'Password is required';
     }
 
-    if ($password_comfirm === '') {
+    if (empty($password_comfirm)) {
         $hasError = true;
         $errors[] = 'Password confirmation is required';
     }
@@ -38,14 +37,27 @@
         $errors[] = 'Passwords do not match';
     }
 
+    $checkUsername = $connect->prepare("SELECT * FROM users WHERE username = ?");
+    $checkUsername->bind_param("s", $username);
+    $checkUsername->execute();
+    $result = $checkUsername->get_result();
+
+    if($result && $result->num_rows > 0) {
+        $hasError = true;
+        $errors[] = 'Username already exists';
+    }
+
     if ($hasError) {
         $_SESSION['errors'] = $errors;
         header('Location: ../register.php');
         exit();
     } else {
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        mysqli_query($connect, "INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES (NULL, '$username', '$password', NULL)");
+        $query = $connect->prepare("INSERT INTO `users` (`username`, `password`, `role`) VALUES (?, ?, NULL)");
+        $query->bind_param("ss", $username, $hashed_password);
+        $query->execute();
+
 
         $_SESSION['registered'] = 'Registered!';
         header("Location: ../index.php");

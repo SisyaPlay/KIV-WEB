@@ -1,95 +1,85 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Получить элементы
-    var loginBtn = document.getElementById("loginBtn");
-    var loginDropdown = document.getElementById("loginDropdown");
+document.addEventListener("DOMContentLoaded", () => {
+    const loginBtn = document.getElementById("loginBtn");
+    const loginDropdown = document.getElementById("loginDropdown");
     const form = document.getElementById('loginForm');
     const fields = form.querySelectorAll('input');
 
     // Показать или скрыть выпадающее меню при клике на кнопку
-    loginBtn.onclick = function(event) {
-        event.stopPropagation(); // Предотвратить закрытие при клике на кнопку
-        if (loginDropdown.style.display === "block") {
-            loginDropdown.style.display = "none";
-        } else {
-            loginDropdown.style.display = "block";
-        }
-    }
+    loginBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        loginDropdown.style.display = loginDropdown.style.display === "block" ? "none" : "block";
+    });
 
     // Закрыть выпадающее меню при клике вне его
-    window.onclick = function(event) {
+    window.addEventListener('click', (event) => {
         if (!event.target.closest('.dropdown')) {
             loginDropdown.style.display = "none";
         }
-    }
+    });
 
-    // Валидация формы при отправке
-    form.addEventListener('submit', function(event) {
-        let isValid = true;
-
-        fields.forEach(function(field) {
-            const errorElement = document.getElementById(field.id + '-error');
+    const showError = (field, message) => {
+        const errorElement = document.getElementById(`${field.id}-error`);
+        field.classList.add('error');
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        if (!field.parentNode.querySelector('.exclamation')) {
             const exclamation = document.createElement('span');
             exclamation.classList.add('exclamation');
             exclamation.textContent = '!';
+            field.parentNode.appendChild(exclamation);
+        }
+    };
 
-            // Если поле пустое, показываем ошибку
+    const hideError = (field) => {
+        field.classList.remove('error');
+        const errorElement = document.getElementById(`${field.id}-error`);
+        if (errorElement) errorElement.style.display = 'none';
+        const exclamationMark = field.parentNode.querySelector('.exclamation');
+        if (exclamationMark) exclamationMark.remove();
+    };
+
+    // Валидация формы при отправке
+    form.addEventListener('submit', (event) => {
+        let isValid = true;
+
+        fields.forEach(field => {
             if (field.value.trim() === '') {
-                field.classList.add('error');
-
-                // Проверяем, добавлен ли восклицательный знак, если нет, то добавляем
-                if (!field.parentNode.querySelector('.exclamation')) {
-                    field.parentNode.appendChild(exclamation);
-                }
-
-                if (errorElement) {
-                    errorElement.style.display = 'block';
-                }
+                showError(field, `${field.name.charAt(0).toUpperCase() + field.name.slice(1)} is required`);
                 isValid = false;
             } else {
-                field.classList.remove('error');
-                if (errorElement) {
-                    errorElement.style.display = 'none';
-                }
-
-                // Удаляем восклицательный знак, если поле заполнено
-                const exclamationMark = field.parentNode.querySelector('.exclamation');
-                if (exclamationMark) {
-                    exclamationMark.remove();
-                }
+                hideError(field);
             }
         });
 
         if (!isValid) {
             event.preventDefault();
-            // Оставляем дропдаун меню открытым, если форма невалидна
             loginDropdown.style.display = 'block';
         }
     });
 
     // Убираем ошибку при вводе текста в поле
-    fields.forEach(function(field) {
-        field.addEventListener('input', function() {
-            if (field.classList.contains('error')) {
-                field.classList.remove('error');
-                const exclamationMark = field.parentNode.querySelector('.exclamation');
-                if (exclamationMark) {
-                    exclamationMark.remove();
-                }
-                const errorElement = document.getElementById(field.id + '-error');
-                if (errorElement) {
-                    errorElement.style.display = 'none';
-                }
-            }
-        });
+    fields.forEach(field => {
+        field.addEventListener('input', () => hideError(field));
     });
 });
 
 // Анимация окна "Зарегистрирован"
-window.onload = function() {
-    var messageElement = document.getElementById('sessionMessage');
+window.onload = () => {
+    const messageElement = document.getElementById('sessionMessage');
     if (messageElement) {
-        setTimeout(function() {
-            messageElement.style.display = 'none';
-        }, 3000);
+        setTimeout(() => messageElement.style.display = 'none', 3000);
     }
 };
+
+document.getElementById('logoutBtn').addEventListener('click', function() {
+    // Создаем форму
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.action = 'vendor/logout.php';
+
+    // Добавляем форму в DOM и отправляем
+    document.body.appendChild(form);
+    form.submit();
+});

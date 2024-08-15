@@ -1,56 +1,67 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('signupForm');
     const fields = form.querySelectorAll('input');
+    const passwordField = document.getElementById('password');
+    const passwordConfirmField = document.getElementById('password_comfirm');
+    const serverErrors = JSON.parse(document.getElementById('server-errors').textContent);
 
-    form.addEventListener('submit', function (event) {
-        let isValid = true;
+    const showError = (field, message) => {
+        const errorElement = document.getElementById(`${field.id}-error`);
+        field.classList.add('error');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
 
-        fields.forEach(function (field) {
-            const errorElement = document.getElementById(field.id + '-error');
+        if (!field.parentNode.querySelector('.exclamation')) {
             const exclamation = document.createElement('span');
             exclamation.classList.add('exclamation');
             exclamation.textContent = '!';
+            field.parentNode.appendChild(exclamation);
+        }
+    };
 
-            // Если поле пустое, показываем ошибку
+    const hideError = (field) => {
+        field.classList.remove('error');
+        const errorElement = document.getElementById(`${field.id}-error`);
+        errorElement.style.display = 'none';
+        const exclamationMark = field.parentNode.querySelector('.exclamation');
+        if (exclamationMark) exclamationMark.remove();
+    };
+
+    // Отображение серверных ошибок
+    if (serverErrors.length > 0) {
+        serverErrors.forEach(error => {
+            if (error.includes('Username already exists')) {
+                const usernameField = document.getElementById('username');
+                showError(usernameField, error);
+            }
+        });
+    }
+
+    form.addEventListener('submit', (event) => {
+        let isValid = true;
+
+        fields.forEach((field) => {
             if (field.value.trim() === '') {
-                field.classList.add('error');
-
-                // Проверяем, добавлен ли восклицательный знак, если нет, то добавляем
-                if (!field.parentNode.querySelector('.exclamation')) {
-                    field.parentNode.appendChild(exclamation);
-                }
-
-                errorElement.style.display = 'block';
+                showError(field, `${field.name.charAt(0).toUpperCase() + field.name.slice(1)} is required`);
                 isValid = false;
             } else {
-                field.classList.remove('error');
-                errorElement.style.display = 'none';
-
-                // Удаляем восклицательный знак, если поле заполнено
-                const exclamationMark = field.parentNode.querySelector('.exclamation');
-                if (exclamationMark) {
-                    exclamationMark.remove();
-                }
+                hideError(field);
             }
         });
 
-        if (!isValid) {
-            event.preventDefault();
+        // Проверяем, совпадают ли пароли
+        if (passwordField.value !== passwordConfirmField.value) {
+            showError(passwordConfirmField, 'Passwords do not match');
+            isValid = false;
+        } else if (passwordConfirmField.value === '') {
+            showError(passwordConfirmField, 'Password confirmation is required');
+            isValid = false;
         }
+
+        if (!isValid) event.preventDefault();
     });
 
-    // Убираем ошибку при вводе текста в поле
-    fields.forEach(function (field) {
-        field.addEventListener('input', function () {
-            if (field.classList.contains('error')) {
-                field.classList.remove('error');
-                const exclamationMark = field.parentNode.querySelector('.exclamation');
-                if (exclamationMark) {
-                    exclamationMark.remove();
-                }
-                const errorElement = document.getElementById(field.id + '-error');
-                errorElement.style.display = 'none';
-            }
-        });
+    fields.forEach((field) => {
+        field.addEventListener('input', () => hideError(field));
     });
 });

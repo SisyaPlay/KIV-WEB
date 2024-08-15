@@ -19,31 +19,37 @@
             <button>Album</button>
         </div>
         <div class="right-buttons">
-            <div class="dropdown">
-                <button id="loginBtn">Login</button>
-                <div class="dropdown-content" id="loginDropdown">
-                    <form id="loginForm" action="vendor/signin.php" method="post">
-                        <label for="username">Username:</label>
-                        <div class="input-wrapper">
-                            <input type="text" name="username" id="username" placeholder="Type your username">
-                            <span class="error-message" id="username-error">Username cannot be empty</span>
-                        </div>
-                        <label for="password">Password:</label>
-                        <div class="input-wrapper">
-                            <input type="password" name="password" id="password" placeholder="Type your password">
-                            <span class="error-message" id="password-error">Password is required</span>
-                        </div>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <!-- Если пользователь авторизован, показываем кнопку выхода -->
+                <button id="logoutBtn">Logout</button>
+            <?php else: ?>
+                <!-- Если пользователь не авторизован, показываем кнопки входа и регистрации -->
+                <div class="dropdown">
+                    <button id="loginBtn">Login</button>
+                    <div class="dropdown-content" id="loginDropdown">
+                        <form id="loginForm" action="vendor/signin.php" method="post">
+                            <label for="username">Username:</label>
+                            <div class="input-wrapper">
+                                <input type="text" name="username" id="username" placeholder="Type your username">
+                                <span class="error-message" id="username-error"></span>
+                            </div>
+                            <label for="password">Password:</label>
+                            <div class="input-wrapper">
+                                <input type="password" name="password" id="password" placeholder="Type your password">
+                                <span class="error-message" id="password-error"></span>
+                            </div>
 
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="checkbox" name="checkbox">
-                            <label for="checkbox" class="checkbox-container">Remember me</label>
-                        </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="checkbox" name="checkbox">
+                                <label for="checkbox" class="checkbox-container">Remember me</label>
+                            </div>
 
-                        <button type="submit">Submit</button>
-                    </form>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <button onclick="location.href='register.php'">Sign Up</button>
+                <button onclick="location.href='register.php'">Sign Up</button>
+            <?php endif; ?>
         </div>
     </header>
 

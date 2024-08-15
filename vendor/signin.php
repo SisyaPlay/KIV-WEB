@@ -35,12 +35,15 @@
         // Проверка пароля
         if (password_verify($password, $hash)) {
             // Пароль верный
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
             $_SESSION['registered'] = "You are logged in successfully";
         } else {
-            $_SESSION['errors'] = ["Invalid username or password"];
+            $_SESSION['massage'] = "Invalid username or password";
         }
     } else {
-        $_SESSION['errors'] = ["Invalid username or password"];
+        $_SESSION['massage'] = "Invalid username or password";
     }
 
     header('Location: ../index.php');
