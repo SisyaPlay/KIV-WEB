@@ -18,6 +18,7 @@
             <button onclick="location.href='index.php'">Home</button>
             <button>Album</button>
         </div>
+        <label class="center-label">Project-M</label>
     </header>
 
     <form id="signupForm" action="vendor/signup.php" method="post">

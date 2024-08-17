@@ -5,7 +5,7 @@ html, body {
 }
 
 .background {
-    position: absolute; /* Занимает всю доступную площадь */
+    position: fixed; /* Занимает всю доступную площадь */
     top: 0;
     left: 0;
     width: 100%;
@@ -14,6 +14,7 @@ html, body {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat; /* Чтобы фон не повторялся */
+    background-attachment: fixed;
     z-index: -1; /* Чтобы фоновое изображение было за всеми другими элементами */
 }
 
@@ -191,4 +192,52 @@ input.error:focus {
 
 .input-wrapper .exclamation:hover + .error-message {
     display: block;
+}
+.profileBtn {
+    background: none;
+}
+
+.profileBtn button{
+    background: url("../img/userIcon.png");
+    background-size: 40px 40px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+.main-container {
+    margin: auto;
+    margin-top: 10px;
+    width: 55%; /* Ширина прямоугольника */
+    height: 85%; /* Высота прямоугольника */
+    background: rgba(128, 128, 128, 0.5); /* Серо-прозрачный цвет */
+    border-radius: 10px; /* Скругленные углы (необязательно) */
+}
+
+.profilePic {
+    background: url("../img/userIcon.png") no-repeat center center;
+    background-size: 100% 100%;
+    border-radius: 50%; /* Создаёт круг */
+    width: 15vw; /* Устанавливаем ширину в vw (viewport width), чтобы сохранить пропорции */
+    height: 15vw; /* Устанавливаем высоту такой же, как ширину */
+    border: none;
+    transform: translateY(10%) translateX(10%); /* Сдвиг изображения */
+}
+
+.center-label {
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    text-shadow:
+        2px 2px 0 #000,
+       -2px -2px 0 #000,
+        2px -2px 0 #000,
+       -2px  2px 0 #000,
+        1px 1px 0 #000,
+       -1px -1px 0 #000,
+        1px -1px 0 #000,
+       -1px  1px 0 #000;
+    color: white;
 }

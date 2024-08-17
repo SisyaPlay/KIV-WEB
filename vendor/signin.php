@@ -5,6 +5,7 @@
 
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $rememberMe = isset($_POST['checkbox']);
 
     $errors = [];
 
@@ -37,7 +38,12 @@
             // Пароль верный
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-
+            if ($rememberMe) {
+                // Если пользователь установил чекбокс, создаем cookie для сохранения сессии
+                $cookie_name = "user_login";
+                $cookie_value = $user['id'];
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); // Cookie на 3 дней
+            }
             $_SESSION['registered'] = "You are logged in successfully";
         } else {
             $_SESSION['massage'] = "Invalid username or password";

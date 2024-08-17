@@ -1,5 +1,22 @@
 <?php
     session_start();
+    global $connect;
+
+    if (!isset($_SESSION['user_id']) && isset($_COOKIE['user_login'])) {
+        $userId = $_COOKIE['user_login'];
+
+        // Предполагается, что вы уже реализовали функцию получения пользователя по ID
+        $query = $connect->prepare("SELECT * FROM users WHERE id = ?");
+        $query->bind_param('i', $userId);
+        $query->execute();
+        $result = $query->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +35,12 @@
             <button onclick="location.href='index.php'">Home</button>
             <button>Album</button>
         </div>
+        <label class="center-label">Project-M</label>
         <div class="right-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <!-- Если пользователь авторизован, показываем кнопку выхода -->
+                <div class="profileBtn">
+                    <button onclick="location.href='profile.php'"></button>
+                </div>
                 <button id="logoutBtn">Logout</button>
             <?php else: ?>
                 <!-- Если пользователь не авторизован, показываем кнопки входа и регистрации -->
@@ -52,6 +72,10 @@
             <?php endif; ?>
         </div>
     </header>
+
+    <div class="main-container">
+        <label class="center-label">News</label>
+    </div>
 
     <?php
         if(@$_SESSION['registered']) {
