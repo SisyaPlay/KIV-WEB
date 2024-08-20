@@ -13,12 +13,13 @@
     <div class="background"></div>
     <!--  Заголовок -->
 
+    <label class="main-label">Project-M</label>
     <header>
         <div class="left-buttons">
-            <button onclick="location.href='index.php'">Home</button>
-            <button>Album</button>
+            <button class="button" onclick="location.href='index.php'">Home</button>
+            <button class="button">Album</button>
         </div>
-        <label class="center-label">Project-M</label>
+
     </header>
 
     <form id="signupForm" action="vendor/signup.php" method="post">

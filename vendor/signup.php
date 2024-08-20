@@ -54,7 +54,7 @@
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = $connect->prepare("INSERT INTO `users` (`username`, `password`, `role`) VALUES (?, ?, NULL)");
+        $query = $connect->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, 0)");
         $query->bind_param("ss", $username, $hashed_password);
         $query->execute();
 

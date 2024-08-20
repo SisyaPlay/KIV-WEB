@@ -15,6 +15,7 @@
             $user = $result->fetch_assoc();
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
         }
     }
 ?>
@@ -30,23 +31,33 @@
     <div class="background"></div>
 
     <!-- Заголовок -->
+    <label class="main-label">Project-M</label>
     <header>
         <div class="left-buttons">
-            <button onclick="location.href='index.php'">Home</button>
-            <button>Album</button>
+            <button class="button" onclick="location.href='index.php'">Home</button>
+            <button class="button">Album</button>
         </div>
-        <label class="center-label">Project-M</label>
+
         <div class="right-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="profileBtn">
-                    <button onclick="location.href='profile.php'"></button>
+                <div class="dropdown-profile">
+                    <button class="profileBtn" id="profileBtn"></button>
+                    <div class="dropdown-profile-content" id="profileDropdown">
+                        <form id="profileForm">
+                            <div class="profilePic"></div>
+                            <div>Change your profile picture</div>
+                            <input type="file" id="myFile" name="filename">
+                            <button class="button" id="changePass">Change password</button>
+                            <button class="button" type="button" id="logoutBtn">Logout</button>
+                        </form>
+                    </div>
                 </div>
-                <button id="logoutBtn">Logout</button>
+
             <?php else: ?>
                 <!-- Если пользователь не авторизован, показываем кнопки входа и регистрации -->
-                <div class="dropdown">
-                    <button id="loginBtn">Login</button>
-                    <div class="dropdown-content" id="loginDropdown">
+                <div class="dropdown-login">
+                    <button class="button" id="loginBtn">Login</button>
+                    <div class="dropdown-login-content" id="loginDropdown">
                         <form id="loginForm" action="vendor/signin.php" method="post">
                             <label for="username">Username:</label>
                             <div class="input-wrapper">
@@ -68,14 +79,27 @@
                         </form>
                     </div>
                 </div>
-                <button onclick="location.href='register.php'">Sign Up</button>
+                <button class="button" onclick="location.href='register.php'">Sign Up</button>
             <?php endif; ?>
         </div>
     </header>
 
-    <div class="main-container">
-        <label class="center-label">News</label>
-    </div>
+    <!-- Блок с кнопкой "Создать" для пользователей с ролью 1 и выше -->
+    <?php
+        $user_role = $_SESSION['role'] ?? 0; // Предполагается, что роль пользователя хранится в сессии
+        if ($user_role >= 1):
+    ?>
+        <div class="main-container">
+            <label class="center-label">News</label>
+            <button id="create-article-btn" onclick="window.location.href='create_article.php'">Создать</button>
+            <div id="article-list"></div>
+        </div>
+    <?php else: ?>
+        <div class="main-container">
+            <label class="center-label">News</label>
+            <div id="article-list"></div>
+        </div>
+    <?php endif; ?>
 
     <?php
         if(@$_SESSION['registered']) {
@@ -100,6 +124,8 @@
     ?>
 
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/articlesContainer.js"></script>
 
 </body>
 </html>

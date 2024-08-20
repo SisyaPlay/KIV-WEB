@@ -6,6 +6,7 @@
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $rememberMe = isset($_POST['checkbox']);
+    $ip = $_SERVER['REMOTE_ADDR'];
 
     $errors = [];
 
@@ -38,8 +39,10 @@
             // Пароль верный
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
             if ($rememberMe) {
                 // Если пользователь установил чекбокс, создаем cookie для сохранения сессии
+
                 $cookie_name = "user_login";
                 $cookie_value = $user['id'];
                 setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); // Cookie на 3 дней

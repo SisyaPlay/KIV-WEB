@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Закрыть выпадающее меню при клике вне его
     window.addEventListener('click', (event) => {
-        if (!event.target.closest('.dropdown')) {
+        if (!event.target.closest('.dropdown-login')) {
             loginDropdown.style.display = "none";
         }
     });
