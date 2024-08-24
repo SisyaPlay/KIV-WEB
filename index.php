@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <div class="background"></div>
+<!--    <div class="background"></div>-->
 
     <!-- Заголовок -->
     <label class="main-label">Project-M</label>
