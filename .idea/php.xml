@@ -10,6 +10,14 @@
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
   </component>
+  <component name="PhpIncludePathManager">
+    <exclude_path>
+      <path value="$PROJECT_DIR$/../../../../../../vfcompat.dll" />
+    </exclude_path>
+    <include_path>
+      <path value="$PROJECT_DIR$/../../../../../../" />
+    </include_path>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.3" />
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />

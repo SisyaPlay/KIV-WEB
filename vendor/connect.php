@@ -4,3 +4,5 @@
     if(!$connect) {
         die('Error connecting to SQL Server');
     }
+//    phpinfo();
+?>

@@ -10,7 +10,7 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%; /* Устанавливаем высоту в 100% */
-    background-image: url('../img/backgroundanimated_1.gif');
+    /*background-image: url('../img/backgroundanimated_1.gif');*/
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat; /* Чтобы фон не повторялся */
@@ -302,4 +302,58 @@ input.error:focus {
 
 .article-item a:hover {
     color: #ff0000; /* Цвет текста ссылок при наведении курсора */
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 400px; /* Измените по необходимости */
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 100%;
+}
+
+.carousel img {
+    width: 100%;
+    height: 400px; /* Задаем фиксированную высоту */
+    object-fit: cover; /* Обеспечивает одинаковый размер, обрезая лишнее */
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Расстояние между каруселью и миниатюрами */
+}
+
+.thumbnail {
+    margin: 0 5px; /* Отступы между миниатюрами */
+    cursor: pointer; /* Указатель при наведении */
+    border: 2px solid transparent; /* Обводка для неактивного состояния */
+    border-radius: 4px; /* Закругленные углы */
+    transition: border 0.3s ease; /* Плавный переход для обводки */
+}
+
+.thumbnail.active {
+    border: 2px solid #007BFF; /* Цвет обводки для активной миниатюры */
+}
+
+
+.thumbnail img {
+    width: 100px; /* Ширина миниатюры */
+    height: 75px; /* Высота миниатюры, чтобы все были одного размера */
+    object-fit: cover; /* Обрезаем изображение, чтобы вписать его в размеры миниатюры */
+    border: 2px solid transparent; /* Обводка для активного состояния */
+    transition: border 0.3s ease; /* Плавный переход для обводки */
+}
+
+.thumbnail:hover img {
+    border: 2px solid #007BFF; /* Цвет обводки при наведении */
 }
