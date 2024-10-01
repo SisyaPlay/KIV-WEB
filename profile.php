@@ -1,23 +1,11 @@
 <?php
-    session_start();
-    global $connect;
+session_start();
+global $connect;
 
-    if (!isset($_SESSION['user_id']) && isset($_COOKIE['user_login'])) {
-        $userId = $_COOKIE['user_login'];
-
-        // Предполагается, что вы уже реализовали функцию получения пользователя по ID
-        $query = $connect->prepare("SELECT * FROM users WHERE id = ?");
-        $query->bind_param('i', $userId);
-        $query->execute();
-        $result = $query->get_result();
-
-        if ($result && $result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
-        }
-    }
+if (!isset($_SESSION['user_id'])) {
+    header("location: index.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +33,6 @@
                     <div class="dropdown-profile-content" id="profileDropdown">
                         <form id="profileForm">
                             <div class="profilePic"></div>
-                            <button class="profile" onclick="location.href='profile.php'" type="button" id="profileBtn">View profile</button>
                             <button class="button" type="button" id="logoutBtn">Logout</button>
                         </form>
                     </div>
@@ -82,48 +69,11 @@
         </div>
     </header>
 
-    <!-- Блок с кнопкой "Создать" для пользователей с ролью 1 и выше -->
-    <?php
-        $user_role = $_SESSION['role'] ?? 0; // Предполагается, что роль пользователя хранится в сессии
-        if ($user_role >= 1):
-    ?>
-        <div class="main-container">
-            <label class="center-label">News</label>
-            <button id="create-article-btn" onclick="window.location.href='create_article.php'">Создать</button>
-            <div id="article-list"></div>
-        </div>
-    <?php else: ?>
-        <div class="main-container">
-            <label class="center-label">News</label>
-            <div id="article-list"></div>
-        </div>
-    <?php endif; ?>
+    <Form>
 
-    <?php
-        if(@$_SESSION['registered']) {
-            echo '<p class="registeredMessage">' . $_SESSION['registered']. '</p>';
-            echo '<script>
-                setTimeout(function() {
-                    var message = document.querySelector(".registeredMessage");
-                    if (message) {
-                        message.classList.add("fadeOut");
-                    }
-                }, 1000); 
-              </script>';
-        }
-        unset($_SESSION['registered']);
-    ?>
-
-    <?php
-        if(@$_SESSION['massage']) {
-            echo '<p class="msg">' . $_SESSION['massage']. '</p>';
-        }
-        unset($_SESSION['massage']);
-    ?>
-
+    </Form>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/profile.js"></script>
-    <script src="assets/js/articlesContainer.js"></script>
-
 </body>
+
 </html>

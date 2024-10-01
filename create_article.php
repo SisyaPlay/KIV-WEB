@@ -14,6 +14,8 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <title>Project-m Blog</title>
     <link rel="stylesheet" href="assets/css/main.css">
+<!--    <script src="assets/ckeditor/ckeditor.js"></script>-->
+    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 </head>
 <body>
 <div class="background"></div>
@@ -50,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 
     <label for="content">Text</label>
-    <textarea id="content" name="content" rows="5" cols="40" required></textarea>
+    <textarea name="content" id="content"></textarea>
 
     <label for="media">Upload a video or picture</label>
     <input type="file" name="media[]" accept="image/*,video/*,.gif" multiple>
@@ -61,4 +63,7 @@ if (!isset($_SESSION['user_id'])) {
 <script src="assets/js/main.js"></script>
 <script src="assets/js/profile.js"></script>
 </body>
+<script>
+    CKEDITOR.replace( 'content' );
+</script>
 </html>

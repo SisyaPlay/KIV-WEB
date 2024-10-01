@@ -83,7 +83,7 @@
 
     <?php if ($article): ?>
         <h1><?php echo htmlspecialchars($article['title']); ?></h1>
-        <p><?php echo nl2br(htmlspecialchars($article['content'])); ?></p>
+        <p><?php echo $article['content']; ?></p>
     <?php else: ?>
         <p>Article not found.</p>
     <?php endif; ?>
