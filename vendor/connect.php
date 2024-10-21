@@ -1,4 +1,5 @@
 <?php
+//    phpinfo();
     $connect = mysqli_connect("localhost", "root", "root", "project_m");
 
     if(!$connect) {

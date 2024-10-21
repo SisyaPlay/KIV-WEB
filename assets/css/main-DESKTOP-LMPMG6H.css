@@ -1,0 +1,371 @@
+/* Основной стиль для страницы */
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.background {
+    position: fixed; /* Занимает всю доступную площадь */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Устанавливаем высоту в 100% */
+    background-image: url('../img/backgroundanimated_1.gif');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; /* Чтобы фон не повторялся */
+    background-attachment: fixed;
+    z-index: -1; /* Чтобы фоновое изображение было за всеми другими элементами */
+}
+
+/* Стили для заголовка */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.left-buttons, .right-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    padding: 10px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #000000;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #e0e0e0;
+}
+
+.dropdown-profile {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-profile-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 20px;
+    min-width: 200px;
+}
+
+/* Стили для контейнера с чекбоксом и лейблом */
+.checkbox-container {
+    padding: 5px 5px;
+    font-weight: normal;
+    display: flex;
+    left: 0;
+    margin-left: -125px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+/* Стилизация формы */
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    box-sizing: border-box;
+}
+
+form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Сообщение об ошибке */
+.msg {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    border: 2px solid #ff0000;
+    border-radius: 4px;
+    background-color: #ffe6e6;
+    text-align: center;
+    font-weight: bold;
+}
+
+.registeredMessage {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    border: 2px solid #00ff00;
+    border-radius: 4px;
+    background-color: #e6ffe6;
+    text-align: center;
+    font-weight: bold;
+    transition: opacity 3s ease-out;
+    opacity: 1;
+
+    position: fixed; /* Фиксированное позиционирование */
+    top: 65px; /* Расположение сверху */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translateX(-50%); /* Корректировка для полного центрирования */
+    z-index: 9999;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+
+/* Дополнительные стили для полей с валидацией */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper .exclamation {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    font-weight: bold;
+    display: none;
+    cursor: pointer;
+}
+
+input.error {
+    border-color: red;
+}
+
+input.error:focus {
+    border-color: darkred;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.error-message {
+    color: red;
+    display: none;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: -15px;
+}
+
+.input-wrapper .exclamation:hover + .error-message {
+    display: block;
+}
+
+.profileBtn {
+    background: url("../img/userIcon.png");
+    background-size: 40px 40px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+.main-container {
+    margin: auto;
+    margin-top: 10px;
+    width: 55%; /* Ширина контейнера */
+    min-height: 85%; /* Минимальная высота — сохраняется как была */
+    background: rgba(128, 128, 128, 0.5); /* Серо-прозрачный цвет */
+    border-radius: 10px; /* Скругленные углы */
+    padding: 20px; /* Отступы внутри контейнера */
+    box-sizing: border-box; /* Учитывает padding при расчете ширины и высоты */
+    overflow: auto; /* Добавляет прокрутку, если контента слишком много */
+}
+
+
+.profilePic {
+    background: url("../img/userIcon.png") no-repeat center center;
+    background-size: 100% 100%;
+    border-radius: 50%; /* Создаёт круг */
+    width: 80px; /* Устанавливаем ширину в vw (viewport width), чтобы сохранить пропорции */
+    height: 80px; /* Устанавливаем высоту такой же, как ширину */
+    border: none;
+}
+
+.center-label {
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    text-shadow:
+        2px 2px 0 #000,
+       -2px -2px 0 #000,
+        2px -2px 0 #000,
+       -2px  2px 0 #000,
+        1px 1px 0 #000,
+       -1px -1px 0 #000,
+        1px -1px 0 #000,
+       -1px  1px 0 #000;
+    color: white;
+}
+
+.main-label {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    text-shadow:
+        2px 2px 0 #000,
+       -2px -2px 0 #000,
+        2px -2px 0 #000,
+       -2px  2px 0 #000,
+        1px 1px 0 #000,
+       -1px -1px 0 #000,
+        1px -1px 0 #000,
+       -1px  1px 0 #000;
+    color: white;
+
+    position: absolute; /* Фиксированное позиционирование */
+    top: 10px; /* Расположение сверху */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translateX(-50%); /* Корректировка для полного центрирования */
+    z-index: 9999;
+}
+
+.article-item {
+    font-size: 30px;
+    padding: 10px;
+    border: 2px solid #000; /* Чёрная рамка толщиной 2px */
+    margin-top: 15px;
+    margin-bottom: 15px; /* Добавляет отступ снизу между элементами */
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px; /* Закругляет углы рамки */
+    background-color: rgba(128, 128, 128, 0.73); /* Фоновый цвет для лучшей видимости */
+
+}
+
+.article-item a {
+    color: #ffffff; /* Цвет текста ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+.article-item a:hover {
+    color: #ff0000; /* Цвет текста ссылок при наведении курсора */
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 70%;
+    height: 400px; /* Измените по необходимости */
+    margin: 0 auto; /* Центрирование карусели на странице */
+}
+
+.carousel-item {
+    position: absolute; /* Позволяет позиционировать изображения друг над другом */
+    top: 50%; /* Центрирование по вертикали */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translate(-50%, -50%); /* Сдвиг изображения на 50% его ширины и высоты */
+    width: 100%; /* Установите ширину изображения, если нужно */
+    height: auto; /* Поддержка соотношения сторон изображения */
+    transition: opacity 0.3s ease; /* Плавный переход */
+    opacity: 0; /* Начальное состояние невидимо */
+    display: none; /* Изначально скрыты */
+}
+
+.fade-in {
+    opacity: 1; /* Показать изображение */
+    /*display: block; !* Убедитесь, что элемент отображается *!*/
+}
+
+.fade-out {
+    opacity: 0; /* Скрыть изображение */
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel img {
+    width: 100%;
+    height: 400px; /* Задаем фиксированную высоту */
+    object-fit: cover; /* Обеспечивает одинаковый размер, обрезая лишнее */
+}
+
+.thumbnails-wrapper {
+    display: flex;
+    justify-content: flex-start; /* Миниатюры остаются по левому краю */
+    overflow-x: auto; /* Горизонтальный скролл */
+    max-width: 575px; /* Ограничение по ширине контейнера */
+    margin: 0 auto; /* Центрирование контейнера по горизонтали */
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center; /* Центрируем миниатюры */
+    margin-top: 10px; /* Расстояние между каруселью и миниатюрами */
+    padding-bottom: 10px; /* Отступ снизу для прокрутки */
+}
+
+.thumbnail.active {
+    height: 75px;
+    border: 2px solid #007BFF; /* Цвет обводки для активной миниатюры */
+}
+
+.thumbnail {
+    flex: 0 0 auto; /* Отключаем автоматическое изменение размера миниатюр */
+    margin: 0 5px; /* Отступы между миниатюрами */
+    cursor: pointer; /* Указатель при наведении */
+    height: 75px;
+    border: 2px solid transparent; /* Обводка для неактивного состояния */
+    border-radius: 4px; /* Закругленные углы */
+    transition: border 0.3s ease; /* Плавный переход для обводки */
+}
+
+.thumbnail img {
+    width: 100px; /* Ширина миниатюры */
+    height: 75px; /* Высота миниатюры */
+    object-fit: cover; /* Изображение подгоняется под размер миниатюры */
+    transition: border 0.3s ease; /* Плавная смена цвета обводки */
+}
