@@ -48,12 +48,12 @@
                 setcookie($cookie_name, $cookie_value, time() + (86400 * 3), "/"); // Cookie на 3 дней
             }
             $_SESSION['registered'] = "You are logged in successfully";
+
+            header('Location: ../index.php');
+            exit();
         } else {
             $_SESSION['massage'] = "Invalid username or password";
         }
     } else {
         $_SESSION['massage'] = "Invalid username or password";
     }
-
-    header('Location: ../index.php');
-    exit();

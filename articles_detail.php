@@ -39,6 +39,7 @@
         $user = $userResult->fetch_assoc();
         $picture = $user['picture'];
     }
+    include 'assets/php/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -51,75 +52,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="background"></div>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <!-- Лейбл слева -->
-            <a class="navbar-brand" href="#">Project-M</a>
-
-            <!-- Вкладки по центру -->
-            <div class="mx-auto order-0">
-                <ul class="navbar-nav" style="display: flex; justify-content: center; width: 100%;">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">
-                            <i class="fas fa-home"></i> Home <!-- Иконка домика -->
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-images"></i> Album <!-- Иконка альбома -->
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Кнопки справа -->
-            <div class="navbar-nav ml-auto">
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <!-- Отображаем аватар пользователя -->
-                    <a class="nav-link" href="profile.php" id="userProfileLink" aria-expanded="false">
-                        <img src="<?php echo $picture ?>" alt="User Avatar" class="user-avatar" />
-                    </a>
-
-                    <!-- Комбобокс для смены языка -->
-                    <select class="form-control" id="languageSelect">
-                        <option value="en">English</option>
-                        <option value="ru">Русский</option>
-                    </select>
-
-                <?php else: ?>
-                    <!-- Кнопка для открытия модального окна входа -->
-                    <a class="nav-link" href="#" id="signInBtn">Sign In</a>
-                    <div class="dropdown-login" id="loginDropdown" style="display: none;">
-                        <div class="dropdown-login-content">
-                            <form id="loginForm" action="vendor/signin.php" method="post">
-                                <label for="username">Username:</label>
-                                <div class="input-wrapper">
-                                    <input type="text" name="username" id="username" placeholder="Type your username">
-                                    <span class="error-message" id="username-error"></span>
-                                </div>
-                                <label for="password">Password:</label>
-                                <div class="input-wrapper">
-                                    <input type="password" name="password" id="password" placeholder="Type your password">
-                                    <span class="error-message" id="password-error"></span>
-                                </div>
-
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="checkbox" name="checkbox">
-                                    <label for="checkbox" class="checkbox-container">Remember me</label>
-                                </div>
-
-                                <button type="submit">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                    <a class="nav-link" href="register.php">Sign Up</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </nav>
-
     <div class="main-container">
         <div class="carousel">
             <div class="carousel-images">
@@ -146,6 +78,36 @@
             <p>Article not found.</p>
         <?php endif; ?>
     </div>
+
+    <?php
+    if(@$_SESSION['registered']) {
+        echo '<p class="registeredMessage">' . $_SESSION['registered']. '</p>';
+        echo '<script>
+                    setTimeout(function() {
+                        var message = document.querySelector(".registeredMessage");
+                        if (message) {
+                            message.classList.add("fadeOut");
+                        }
+                    }, 1000); 
+                  </script>';
+    }
+    unset($_SESSION['registered']);
+    ?>
+
+    <?php
+    if(@$_SESSION['massage']) {
+        echo '<p class="msg">' . $_SESSION['massage']. '</p>';
+        echo '<script>
+                    setTimeout(function() {
+                        var message = document.querySelector(".msg");
+                        if (message) {
+                            message.classList.add("fadeOut");
+                        }
+                    }, 1000); 
+                  </script>';
+    }
+    unset($_SESSION['massage']);
+    ?>
 
     <script src="assets/js/login.js"></script>
     <script src="assets/js/imageCarousel.js"></script>

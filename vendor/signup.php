@@ -7,7 +7,8 @@
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $password_comfirm = $_POST['password_comfirm'];
+    $password_comfirm = $_POST['password_confirm'];
+    echo $password_comfirm;
 
     $hasError = false;
     $errors = [];
@@ -60,6 +61,7 @@
 
 
         $_SESSION['registered'] = 'Registered!';
+        $_SESSION['user_id'] = $connect->insert_id;
         header("Location: ../index.php");
         exit();
     }

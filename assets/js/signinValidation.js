@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('signupForm');
     const usernameField = document.getElementById('username-');
-    const emailField = document.getElementById('email');
     const passwordField = document.getElementById('password-');
-    const passwordConfirmField = document.getElementById('password_confirm');
     const serverErrors = JSON.parse(document.getElementById('server-errors')?.textContent || '[]');
 
     const showError = (field, message) => {
@@ -26,15 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Отображение серверных ошибок
     serverErrors.forEach(error => {
-        if (error.includes('Username')) showError(usernameField, error);
-        if (error.includes('Email')) showError(emailField, error);
+        if (error.includes('username')) showError(usernameField, error);
+        if (error.includes('password')) showError(passwordField, error);
     });
 
     form.addEventListener('submit', (event) => {
         let isValid = true;
 
         // Проверка на пустые поля
-        [usernameField, emailField, passwordField, passwordConfirmField].forEach((field) => {
+        [usernameField, passwordField].forEach((field) => {
             if (field.value.trim() === '') {
                 showError(field, `${field.name} is required`);
                 isValid = false;
@@ -43,19 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Проверка на совпадение паролей
-        if (passwordField.value !== passwordConfirmField.value) {
-            showError(passwordConfirmField, 'Passwords do not match');
-            isValid = false;
-        } else if (passwordField.value && passwordConfirmField.value) {
-            hideError(passwordConfirmField);
-        }
-
         if (!isValid) event.preventDefault();
     });
 
-    // Скрытие ошибок при вводе
-    [usernameField, emailField, passwordField, passwordConfirmField].forEach((field) => {
+    // Удаление ошибок при вводе
+    [usernameField, passwordField].forEach((field) => {
         field.addEventListener('input', () => hideError(field));
     });
 });
