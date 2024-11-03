@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:3306
--- Время создания: Окт 21 2024 г., 17:18
+-- Время создания: Ноя 03 2024 г., 15:33
 -- Версия сервера: 5.7.24
 -- Версия PHP: 8.3.1
 
@@ -79,12 +79,44 @@ INSERT INTO `article_pictures` (`id`, `article_id`, `picture`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `article_id`, `parent_id`, `content`, `created_at`) VALUES
+(1, 1, 18, NULL, 'test1', '2024-11-01 10:22:56'),
+(2, 1, 18, NULL, 'test2', '2024-11-01 10:23:32'),
+(3, 1, 18, NULL, 'test3', '2024-11-01 10:24:12'),
+(4, 1, 18, 3, 'ответ1', '2024-11-01 10:30:41'),
+(5, 1, 18, 4, 'ответ2', '2024-11-01 10:34:41'),
+(6, 1, 18, 2, 'бууу', '2024-11-01 10:34:59'),
+(7, 1, 18, 5, 'МНОООГО\nСТРОООК\nХЕХЕХЕ', '2024-11-01 10:41:41'),
+(8, 1, 18, 7, 'ТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТТЕСТ', '2024-11-01 10:42:01'),
+(9, 3, 18, NULL, 'new test', '2024-11-01 10:57:33'),
+(10, 3, 18, 1, 'ответ', '2024-11-01 10:57:48');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `roles`
 --
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `name` text,
+  `allowRead` int(11) DEFAULT NULL,
   `allowCreate` int(11) DEFAULT NULL,
   `allowDelete` int(11) DEFAULT NULL,
   `allowWriteComm` int(11) DEFAULT NULL,
@@ -96,8 +128,11 @@ CREATE TABLE `roles` (
 -- Дамп данных таблицы `roles`
 --
 
-INSERT INTO `roles` (`id`, `name`, `allowCreate`, `allowDelete`, `allowWriteComm`, `editPermission`, `allowBan`) VALUES
-(3, 'SuperAdmin', 1, 1, 1, 1, 1);
+INSERT INTO `roles` (`id`, `name`, `allowRead`, `allowCreate`, `allowDelete`, `allowWriteComm`, `editPermission`, `allowBan`) VALUES
+(0, 'Default', 1, 0, 0, 1, 0, 0),
+(3, 'SuperAdmin', 1, 1, 1, 1, 1, 1),
+(4, 'Creator', 1, 1, 1, 1, 0, 0),
+(5, 'Ban', 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -119,7 +154,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `picture`) VALUES
-(1, 'YalpYasis', '$2y$10$brZPG41LfraUQP2dHyCG7ujRuJ2V7B.96ZMiaJ0jrI979087ZkIya', '123@qwe.xz', 3, '../uploads/1_1729430971.jpg');
+(1, 'YalpYasis', '$2y$10$brZPG41LfraUQP2dHyCG7ujRuJ2V7B.96ZMiaJ0jrI979087ZkIya', '123@qwe.xz', 3, '../uploads/1_1729430971.jpg'),
+(3, 'test', '$2y$10$IHrGH/H0BF1bG24hx3B0vuudcyT4EleYgLlH6Xxs9bqGYcv2K4JyG', 'test@aa.cz', 0, '../uploads/3_1729848703.jpeg'),
+(4, 'test2', '$2y$10$RqVPBTgDzYYbwmaeIC697.IIbyspeUOL0AiHKGFFavtw9EsCxum32', 'test@aa.cz1', 4, 'assets/img/usericon.png'),
+(5, 'test3', '$2y$10$KXRsYJoCSdbcsiKv5Bj2JOva4cxDU6qEUi2g/888kk51en5MNv6ri', 'test@aa.cz', 3, 'assets/img/usericon.png'),
+(6, 'test4', '$2y$10$oEqrtMYHzmdILeKbbYTLMusZo5GvSoxsfaOs8J.2Ry1QzRMgFexfm', 'test@aa.cz', 0, 'assets/img/usericon.png');
 
 --
 -- Индексы сохранённых таблиц
@@ -136,6 +175,15 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `article_pictures`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `article_id` (`article_id`),
+  ADD KEY `parent_id` (`parent_id`);
 
 --
 -- Индексы таблицы `roles`
@@ -166,10 +214,34 @@ ALTER TABLE `article_pictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT для таблицы `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT для таблицы `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`),
+  ADD CONSTRAINT `comments_ibfk_3` FOREIGN KEY (`parent_id`) REFERENCES `comments` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

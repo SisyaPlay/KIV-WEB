@@ -64,7 +64,6 @@
                         <input type="file" name="avatar" accept="image/*" class="form-control">
                         <button type="submit" class="btn btn-primary mt-2">Change Avatar</button>
                     </form>
-                    <a href="vendor/logout.php" class="btn btn-danger mt-3">Logout</a>
                 </div>
             </div>
 

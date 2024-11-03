@@ -527,3 +527,142 @@ input.error:focus {
         background-color: black;
     }
 }
+
+.comments-list {
+    max-width: 100%; /* Максимальная ширина блока комментариев */
+    overflow-wrap: break-word; /* Перенос длинных слов */
+}
+
+.comment {
+    margin-bottom: 10px; /* Отступ между комментариями */
+    border: 1px solid #ccc; /* Рамка вокруг комментария */
+    padding: 10px; /* Отступ внутри комментария */
+    border-radius: 5px; /* Скругленные углы */
+    word-wrap: break-word; /* Перенос длинных слов */
+}
+
+
+.comments-list p {
+    color: white; /* Цвет текста комментариев */
+    margin: 5px 0; /* Отступы для параграфов */
+}
+
+.reply-button {
+    color: #007bff; /* Цвет кнопки ответа */
+    cursor: pointer; /* Указатель для курсора */
+}
+
+.reply-textarea {
+    margin-top: 5px; /* Отступ сверху для текстового поля */
+    color: black; /* Цвет текста в текстовом поле */
+    border: 1px solid #ccc; /* Рамка для текстового поля */
+    border-radius: 5px; /* Скругление углов у текстового поля */
+    width: 100%; /* Ширина текстового поля */
+    height: 40px; /* Высота текстового поля */
+    display: none; /* Изначально скрыто */
+}
+
+.submit-reply {
+    color: #007bff; /* Цвет кнопки отправки ответа */
+    margin-top: 5px; /* Отступ сверху для кнопки отправки */
+    cursor: pointer; /* Указатель для курсора */
+}
+
+.reply-container {
+    display: flex; /* Используем flexbox для выравнивания */
+    align-items: center; /* Центрируем по вертикали */
+    margin-top: 5px; /* Отступ сверху */
+}
+
+.reply-arrow {
+    margin-right: 5px; /* Отступ справа от стрелочки */
+    color: red; /* Цвет стрелочки */
+}
+
+.article-content {
+    color: white; /* Устанавливаем цвет текста белым */
+}
+
+.main-container p {
+    color: white; /* Устанавливаем цвет текста белым */
+    margin-bottom: 10px; /* Добавляем отступ между параграфами */
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+.gallery-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+.gallery-grid img:hover {
+    transform: scale(1.05);
+}
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    animation: zoom 0.6s;
+}
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 40px;
+    transition: 0.3s;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+.next {
+    right: 10px;
+    border-radius: 3px 0 0 3px;
+}
+.prev {
+    left: 10px;
+    border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+    color: #bbb;
+}

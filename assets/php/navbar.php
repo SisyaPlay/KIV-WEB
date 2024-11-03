@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="album.php">
                             <i class="fas fa-images"></i> Album <!-- Иконка альбома -->
                         </a>
                     </li>
@@ -32,6 +32,7 @@
                     <a class="nav-link" href="profile.php" id="userProfileLink" aria-expanded="false">
                         <img src="<?php echo $picture ?>" alt="User Avatar" class="user-avatar" id="userAvatar" />
                     </a>
+                    <a href="vendor/logout.php" class="btn btn-danger mt-2">Logout</a>
                 <?php else: ?>
                     <a class="nav-link" href="#" id="signInBtn">Sign In</a>
                     <div class="dropdown-login" id="loginDropdown" style="display: none;">
@@ -76,10 +77,11 @@
     <div class="offcanvas-body d-flex flex-column justify-content-between text-center">
         <div>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="mb-3">
+                <div class="mb-3 d-flex flex-column align-items-center">
                     <a href="profile.php">
                         <img src="<?php echo $picture ?>" alt="User Avatar" class="user-avatar" id="userAvatar" style="width: 80px; height: 80px; border-radius: 50%;">
                     </a>
+                    <a href="vendor/logout.php" class="btn btn-danger mt-3">Logout</a>
                 </div>
             <?php else: ?>
                 <ul class="list-group">
@@ -98,7 +100,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="album.php">
                             <i class="fas fa-images"></i> Album
                         </a>
                     </li>
