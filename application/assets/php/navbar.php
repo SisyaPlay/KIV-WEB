@@ -14,7 +14,7 @@
             <div class="mx-auto order-0">
                 <ul class="navbar-nav" style="display: flex; justify-content: center; width: 100%;">
                     <li class="nav-item">
-                        <a class="nav-link" href="main.php">
+                        <a class="nav-link" href="/main">
                             <i class="fas fa-home"></i> Home <!-- Иконка домика -->
                         </a>
                     </li>
@@ -37,7 +37,7 @@
                     <a class="nav-link" href="#" id="signInBtn">Sign In</a>
                     <div class="dropdown-login" id="loginDropdown" style="display: none;">
                         <div class="dropdown-login-content">
-                            <form id="loginForm" action="vendor/signin.php" method="post">
+                            <form id="loginForm" action="/login/authenticate" method="post">
                                 <label for="username">Username:</label>
                                 <div class="input-wrapper">
                                     <input type="text" name="username" id="username" placeholder="Type your username">
@@ -86,7 +86,7 @@
             <?php else: ?>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a class="nav-link" href="login.php">Log In</a>
+                        <a class="nav-link" href="/login">Log In</a>
                     </li>
                     <li class="list-group-item">
                         <a class="nav-link" href="register.php">Sign Up</a>
@@ -95,7 +95,7 @@
             <?php endif; ?>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a class="nav-link" href="index.php">
+                        <a class="nav-link" href="/main">
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>

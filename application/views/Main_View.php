@@ -1,15 +1,35 @@
-<?php
-if ($data['hasPermission']):
-    ?>
+<?php if ($_SESSION['allowCreate']): ?>
     <div class="main-container">
         <label class="center-label">News</label>
         <button id="create-article-btn" onclick="window.location.href='create_article.php'">Создать</button>
-        <div id="article-list"></div>
+        <div id="article-list">
+          <?php
+          // Проверяем, есть ли статьи в данных
+          if (isset($data["articles"]) && is_array($data['articles'])) {
+            foreach ($data['articles'] as $article) {
+              echo '<div class="article-item">';
+              echo '<a href="articles_detail.php?id=' . $article['id'] . '">' . htmlspecialchars($article['title']) . '</a>';
+              echo '</div>';
+            }
+          }
+          ?>
+        </div>
     </div>
 <?php else: ?>
     <div class="main-container">
         <label class="center-label">News</label>
-        <div id="article-list"></div>
+        <div id="article-list">
+          <?php
+          // Проверяем, есть ли статьи в данных
+          if (isset($data["articles"]) && is_array($data['articles'])) {
+            foreach ($data['articles'] as $article) {
+              echo '<div class="article-item">';
+              echo '<a href="articles_detail.php?id=' . $article['id'] . '">' . htmlspecialchars($article['title']) . '</a>';
+              echo '</div>';
+            }
+          }
+          ?>
+        </div>
     </div>
 <?php endif; ?>
 
@@ -35,4 +55,7 @@ if ($data['hasPermission']):
             }
         }, 1000);
     </script>
-    <?php unset($_SESSION['massage']); endif; ?>
+<?php unset($_SESSION['massage']); endif; ?>
+
+<script src="application/assets/js/login.js"></script>
+<script src="application/assets/js/articlesContainer.js"></script>
