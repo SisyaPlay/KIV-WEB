@@ -30,14 +30,14 @@
             <div class="navbar-nav ml-auto">
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a class="nav-link" href="profile.php" id="userProfileLink" aria-expanded="false">
-                        <img src="<?php echo $picture ?>" alt="User Avatar" class="user-avatar" id="userAvatar" />
+                        <img src="<?php echo $_SESSION['picture'] ?>" alt="User Avatar" class="user-avatar" id="userAvatar" />
                     </a>
-                    <a href="vendor/logout.php" class="btn btn-danger mt-2">Logout</a>
+                    <a href="/logout" class="btn btn-danger mt-2">Logout</a>
                 <?php else: ?>
                     <a class="nav-link" href="#" id="signInBtn">Sign In</a>
                     <div class="dropdown-login" id="loginDropdown" style="display: none;">
                         <div class="dropdown-login-content">
-                            <form id="loginForm" action="/login/authenticate" method="post">
+                            <form id="loginForm" action="/login" method="post">
                                 <label for="username">Username:</label>
                                 <div class="input-wrapper">
                                     <input type="text" name="username" id="username" placeholder="Type your username">
@@ -79,9 +79,9 @@
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="mb-3 d-flex flex-column align-items-center">
                     <a href="profile.php">
-                        <img src="<?php echo $picture ?>" alt="User Avatar" class="user-avatar" id="userAvatar" style="width: 80px; height: 80px; border-radius: 50%;">
+                        <img src="<?php echo $_SESSION['picture'] ?>" alt="User Avatar" class="user-avatar" id="userAvatar" style="width: 80px; height: 80px; border-radius: 50%;">
                     </a>
-                    <a href="vendor/logout.php" class="btn btn-danger mt-3">Logout</a>
+                    <a href="/logout" class="btn btn-danger mt-3">Logout</a>
                 </div>
             <?php else: ?>
                 <ul class="list-group">

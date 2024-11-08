@@ -4,6 +4,7 @@ class route
 {
     static function start()
     {
+        session_start();
         // контроллер и действие по умолчанию
         $controller_name = 'Main';
         $action_name = 'index';
@@ -51,7 +52,7 @@ class route
             */
             route::ErrorPage404();
         }
-
+        echo $controller_name;
         // создаем контроллер
         $controller = new $controller_name;
         $action = $action_name;

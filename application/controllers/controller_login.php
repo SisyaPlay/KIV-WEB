@@ -1,39 +1,30 @@
 <?php
-class controller_Login extends controller {
-    function __construct() {
-        $this->model = new model_Login();
+
+class Controller_Login extends Controller {
+    public function __construct() {
+        $this->model = new Model_Login();
         $this->view = new View();
     }
 
     public function action_index() {
-        // Проверка, авторизован ли пользователь
-        if (isset($_SESSION['user_id'])) {
-            // Если пользователь уже авторизован, перенаправляем на главную страницу
-            header('Location: /main');
-            exit();
-        }
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          // Получаем данные из формы
+          $username = trim($_POST['username']);
+          $password = trim($_POST['password']);
+          $rememberMe = isset($_POST['checkbox']);
 
-        $data = ["login_status" => ""]; // Инициализируем массив для передачи данных в вид
+          // Выполняем аутентификацию
+          $result = $this->model->authenticate($username, $password, $rememberMe);
 
-        // Проверяем, отправлена ли форма
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            $username = trim($_POST['username']);
-            $password = trim($_POST['password']);
-            $rememberMe = isset($_POST['checkbox']);
-
-            // Попытка авторизации через модель
-            $authResult = $this->model->authenticate($username, $password, $rememberMe);
-
-            if ($authResult['success']) {
-                // Успешная авторизация, перенаправляем на главную страницу
-                header('Location: /main');
-                exit();
-            } else {
-                // Ошибка авторизации, передаем сообщение в вид
-                $data["login_status"] = implode(", ", $authResult['errors']);  // Преобразуем массив ошибок в строку
-            }
-        }
-
-        $this->view->generate('login_view.php', 'template_view.php', $data);
+          if ($result['success']) {
+              $_SESSION['registered'] = "You are logged in successfully";
+              header("Location: /main"); // Перенаправление на главную страницу
+          } else {
+              // Ошибки при авторизации
+              $_SESSION['massage'] = "Invalid username or password";
+              header("Location: /main"); // Возврат на страницу логина
+          }
+      }
+      $this->view->generate("main_view.php", "template_view.php");
     }
 }

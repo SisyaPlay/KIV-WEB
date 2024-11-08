@@ -2,48 +2,48 @@
 
 class model_Main extends model {
     public function get_data() {
-      if (isset($_COOKIE['user_login'])) {
-          $user_id = $_COOKIE['user_login'];
+        if (isset($_COOKIE['user_login']) && !isset($_SESSION['user_id'])) {
+            // Если в cookie есть user_login и нет сессии, устанавливаем user_id в сессии
+            $_SESSION['user_id'] = $_COOKIE['user_login'];
+        }
 
-          // Устанавливаем идентификатор пользователя в сессии
-          $_SESSION['user_id'] = $user_id;
-      }
+        // Проверяем, установлен ли идентификатор пользователя в сессии
+        if (isset($_SESSION['user_id'])) {
+            // Получаем идентификатор пользователя из сессии
+            $user_id = $_SESSION['user_id'];
 
-      // Проверяем, установлен ли идентификатор пользователя в сессии
-      if (isset($_SESSION['user_id'])) {
-          // Получаем идентификатор пользователя из сессии
-          $user_id = $_SESSION['user_id'];
+            // Получаем информацию о пользователе
+            $query = $this->mysql->prepare("SELECT * FROM users WHERE id = ?");
+            $query->bind_param('i', $user_id);
+            $query->execute();
+            $result = $query->get_result();
 
-          // Получаем информаци   ю о пользователе
-          $query = $this->mysql->prepare("SELECT * FROM users WHERE id = ?");
-          $query->bind_param('i', $user_id);
-          $query->execute();
-          $result = $query->get_result();
+            if ($result && $result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+                $_SESSION['user_id'] = $user['id'];  // Убедитесь, что поле корректно
+                $_SESSION['picture'] = $user['picture'];
+                $_SESSION['role'] = $user['role'];
+            }
 
-          if ($result && $result->num_rows > 0) {
-              $user = $result->fetch_assoc();
-              $_SESSION['user_id'] = $user['user_id'];
-              $_SESSION['picture'] = $user['picture'];
-              $_SESSION['role'] = $user['role'];
-          } else {
-              echo "User not found.";
-              exit();
-          }
+            // Проверяем права пользователя
+            $role_id = $_SESSION['role'];  // Используем роль из сессии
+            $userRoleQuery = $this->mysql->prepare("SELECT * FROM roles WHERE id = ?");
+            $userRoleQuery->bind_param('i', $role_id);
+            $userRoleQuery->execute();
+            $userRoleResult = $userRoleQuery->get_result();
 
-          // Проверяем права пользователя
-          $userRoleQuery = $this->mysql->prepare("SELECT * FROM roles WHERE id = ?");
-          $userRoleQuery->bind_param('i', $role_id);
-          $userRoleQuery->execute();
-          $userRoleResult = $userRoleQuery->get_result();
-
-          if ($userRoleResult && $userRoleResult->num_rows > 0) {
-              $role = $userRoleResult->fetch_assoc();
-              $_SESSION['allowCreate'] = $role['allowCreate'];
-          } else {
-              $_SESSION['allowCreate'] = 0; // По умолчанию, если роль не найдена
-          }
-      }
-      $_SESSION['allowCreate'] = 0;
+            if ($userRoleResult && $userRoleResult->num_rows > 0) {
+                $role = $userRoleResult->fetch_assoc();
+                $_SESSION['allowCreate'] = $role['allowCreate'];
+            } else {
+                $_SESSION['allowCreate'] = 0; // По умолчанию, если роль не найдена
+            }
+        } else {
+            $_SESSION['allowCreate'] = 0; // Если пользователь не авторизован
+        }
+        echo '<pre>'; // Делаем вывод более читаемым
+        print_r($_SESSION);
+        echo '</pre>';
     }
 
     public function get_articles() {
@@ -54,7 +54,7 @@ class model_Main extends model {
         $stmt->execute();
 
         // Получение результата
-        $result = $stmt->get_result();  // Получаем результат через get_result()
+        $result = $stmt->get_result();
 
         // Создание массива для хранения всех статей
         $data = [];
@@ -66,6 +66,4 @@ class model_Main extends model {
 
         return $data;
     }
-
-
 }

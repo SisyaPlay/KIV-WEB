@@ -1,5 +1,6 @@
 <?php
-class model_Login extends model {
+
+class Model_Login extends Model {
     public function authenticate($username, $password, $rememberMe) {
         $errors = [];
 
@@ -33,7 +34,6 @@ class model_Login extends model {
                 setcookie("user_login", $user['id'], time() + (86400 * 3), "/");
             }
 
-            $_SESSION['registered'] = "You are logged in successfully";
             return ['success' => true];
         } else {
             // Ошибка авторизации
