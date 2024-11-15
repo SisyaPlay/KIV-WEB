@@ -27,7 +27,7 @@
 
     <!-- Контент статьи -->
     <?php if ($data['article']): ?>
-        <p class="article-content"><?php echo htmlspecialchars($data['article']['content']); ?></p>
+        <p class="article-content"><?php echo $data['article']['content']; ?></p>
     <?php else: ?>
         <p>Статья не найдена.</p>
     <?php endif; ?>
@@ -40,7 +40,7 @@
             <input type="hidden" id="article_id" value="<?php echo $articleId; ?>">
             <textarea class="form-control" id="commentContent" rows="2" placeholder="Напишите комментарий..."></textarea>
             <a href="#" id="submitComment" class="btn btn-primary mt-2">Отправить</a>
-        <?php elseif (!$user_id): ?>
+        <?php elseif (!isset($_SESSION['user_id'])): ?>
             <p><a href="/login">Войдите</a>, чтобы оставить комментарий.</p>
         <?php else: ?>
             <p>У вас нет прав для добавления комментариев.</p>

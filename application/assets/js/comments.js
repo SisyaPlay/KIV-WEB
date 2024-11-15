@@ -89,4 +89,3 @@ function autoResizeTextarea(textarea) {
     textarea.style.height = 'auto'; // Сначала сбрасываем высоту
     textarea.style.height = (textarea.scrollHeight) + 'px'; // Устанавливаем высоту в соответствии с содержимым
 }
-

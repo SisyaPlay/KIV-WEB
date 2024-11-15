@@ -14,7 +14,7 @@ class Controller_Article_Detail extends Controller {
         $data['images'] = $this->model->get_images($articleId);
         $data['comments'] = $this->model->get_comments($articleId);
         $data['permissions'] = $this->model->get_user_permissions($user_id);
-
+        
         $this->view->generate("article_detail_view.php", "template_view.php", $data);
     }
 }

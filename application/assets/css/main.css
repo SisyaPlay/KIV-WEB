@@ -15,7 +15,7 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat; /* Чтобы фон не повторялся */
     background-attachment: fixed;
-    background: rgba(200, 200, 200);
+    background: rgba(256, 256, 256);
     z-index: -1; /* Чтобы фоновое изображение было за всеми другими элементами */
 }
 
