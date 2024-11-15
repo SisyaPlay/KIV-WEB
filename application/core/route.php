@@ -52,7 +52,6 @@ class route
             */
             route::ErrorPage404();
         }
-        echo $controller_name;
         // создаем контроллер
         $controller = new $controller_name;
         $action = $action_name;

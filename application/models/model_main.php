@@ -1,6 +1,6 @@
 <?php
 
-class model_Main extends model {
+class Model_Main extends model {
     public function get_data() {
         if (isset($_COOKIE['user_login']) && !isset($_SESSION['user_id'])) {
             // Если в cookie есть user_login и нет сессии, устанавливаем user_id в сессии
@@ -41,9 +41,6 @@ class model_Main extends model {
         } else {
             $_SESSION['allowCreate'] = 0; // Если пользователь не авторизован
         }
-        echo '<pre>'; // Делаем вывод более читаемым
-        print_r($_SESSION);
-        echo '</pre>';
     }
 
     public function get_articles() {

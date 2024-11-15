@@ -1,4 +1,5 @@
-<form id="loginForm" action="/login/authenticate" method="post">
+<form id="loginForm" action="/login" method="post">
+    <input type="hidden" name="redirect_to" value="login_page">
     <label for="username">Username:</label>
     <div class="input-wrapper">
         <input type="text" name="username" id="username" placeholder="Type your username">
@@ -19,9 +20,26 @@
     <button type="submit">Submit</button>
 </form>
 
-<?php if(isset($_SESSION['errors'])): ?>
-    <script id="server-errors" type="application/json"><?= json_encode($_SESSION['errors']); ?></script>
-<?php unset($_SESSION['errors']); ?>
-<?php else: ?>
-    <script id="server-errors" type="application/json">[]</script>
-<?php endif; ?>
+<?php if (isset($_SESSION['registered'])): ?>
+    <p class="registeredMessage"><?= $_SESSION['registered'] ?></p>
+    <script>
+        setTimeout(() => {
+            const message = document.querySelector(".registeredMessage");
+            if (message) {
+                message.classList.add("fadeOut");
+            }
+        }, 1000);
+    </script>
+    <?php unset($_SESSION['registered']); endif; ?>
+
+<?php if (isset($_SESSION['massage'])): ?>
+    <p class="msg"><?= $_SESSION['massage'] ?></p>
+    <script>
+        setTimeout(() => {
+            const message = document.querySelector(".msg");
+            if (message) {
+                message.classList.add("fadeOut");
+            }
+        }, 1000);
+    </script>
+<?php unset($_SESSION['massage']); endif; ?>

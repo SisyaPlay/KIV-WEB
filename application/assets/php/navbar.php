@@ -38,6 +38,7 @@
                     <div class="dropdown-login" id="loginDropdown" style="display: none;">
                         <div class="dropdown-login-content">
                             <form id="loginForm" action="/login" method="post">
+                                <input type="hidden" name="redirect_to" value="dropdown">
                                 <label for="username">Username:</label>
                                 <div class="input-wrapper">
                                     <input type="text" name="username" id="username" placeholder="Type your username">
@@ -58,7 +59,7 @@
                             </form>
                         </div>
                     </div>
-                    <a class="nav-link" href="register.php">Sign Up</a>
+                    <a class="nav-link" href="/register">Sign Up</a>
                 <?php endif; ?>
                 <select class="form-select form-select-sm" id="languageSelect" aria-label="Language select">
                     <option value="en">English</option>
@@ -89,7 +90,7 @@
                         <a class="nav-link" href="/login">Log In</a>
                     </li>
                     <li class="list-group-item">
-                        <a class="nav-link" href="register.php">Sign Up</a>
+                        <a class="nav-link" href="/register">Sign Up</a>
                     </li>
                 </ul>
             <?php endif; ?>
