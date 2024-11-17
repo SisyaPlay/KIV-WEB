@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="album.php">
+                        <a class="nav-link" href="/album">
                             <i class="fas fa-images"></i> Album <!-- Иконка альбома -->
                         </a>
                     </li>
@@ -29,7 +29,7 @@
             <!-- Кнопки справа -->
             <div class="navbar-nav ml-auto">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a class="nav-link" href="profile.php" id="userProfileLink" aria-expanded="false">
+                    <a class="nav-link" href="/profile" id="userProfileLink" aria-expanded="false">
                         <img src="<?php echo $_SESSION['picture'] ?>" alt="User Avatar" class="user-avatar" id="userAvatar" />
                     </a>
                     <a href="/logout" class="btn btn-danger mt-2">Logout</a>
@@ -79,7 +79,7 @@
         <div>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="mb-3 d-flex flex-column align-items-center">
-                    <a href="profile.php">
+                    <a href="/profile">
                         <img src="<?php echo $_SESSION['picture'] ?>" alt="User Avatar" class="user-avatar" id="userAvatar" style="width: 80px; height: 80px; border-radius: 50%;">
                     </a>
                     <a href="/logout" class="btn btn-danger mt-3">Logout</a>
@@ -101,7 +101,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a class="nav-link" href="album.php">
+                        <a class="nav-link" href="/album">
                             <i class="fas fa-images"></i> Album
                         </a>
                     </li>
