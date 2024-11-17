@@ -1,23 +1,28 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Добавляем обработчик событий для кнопки отправки комментария
-    document.getElementById('submitComment').addEventListener('click', function(event) {
+    document.getElementById('submitComment').addEventListener('click', function (event) {
         event.preventDefault();
 
-        const articleId = document.getElementById('article_id').value;
-        const content = document.getElementById('commentContent').value.trim();
+        const articleId = document.getElementById('article_id').value; // ID статьи
+        const content = document.getElementById('commentContent').value.trim(); // Текст комментария
 
         if (content) {
-            fetch('vendor/add_comments.php', {
+            fetch('/add_comment', { // Указываем корректный маршрут
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: `article_id=${encodeURIComponent(articleId)}&content=${encodeURIComponent(content)}`
             })
-                .then(response => response.text())
-                .then(data => {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка при отправке комментария');
+                    }
+                    return response.text();
+                })
+                .then(() => {
                     // Перезагружаем страницу, чтобы отобразить новый комментарий
-                    window.location.href = `articles_detail.php?id=${articleId}`;
+                    window.location.href = `/article_detail?id=${articleId}`;
                 })
                 .catch(error => console.error('Error:', error));
         } else {
@@ -67,7 +72,7 @@ function submitReply(button, parentId) {
 
     // Отправка комментария на сервер
     if (content) {
-        fetch('vendor/add_comments.php', {
+        fetch('/add_comment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -77,7 +82,7 @@ function submitReply(button, parentId) {
             .then(response => response.text())
             .then(data => {
                 // Перезагружаем страницу, чтобы отобразить новый комментарий
-                window.location.href = `articles_detail.php?id=${articleId}`;
+                window.location.href = `/article_detail?id=${articleId}`;
             })
             .catch(error => console.error('Error:', error));
     } else {

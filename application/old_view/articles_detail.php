@@ -64,10 +64,10 @@
     }
 
     // Получение комментариев, связанных с этой статьей
-    $commentQuery = $connect->prepare("SELECT c.content, c.created_at, u.username 
-                                           FROM comments c 
-                                           JOIN users u ON c.user_id = u.id 
-                                           WHERE c.article_id = ? 
+    $commentQuery = $connect->prepare("SELECT c.content, c.created_at, u.username
+                                           FROM comments c
+                                           JOIN users u ON c.user_id = u.id
+                                           WHERE c.article_id = ?
                                            ORDER BY c.created_at DESC");
     $commentQuery->bind_param("i", $articleId);
     $commentQuery->execute();
@@ -127,10 +127,10 @@
         <div class="comments-list">
             <?php
             function displayComments($connect, $articleId, $parentId = null, $level = 0) {
-                $query = $connect->prepare("SELECT c.id, c.content, c.created_at, u.username 
-                                FROM comments c 
-                                JOIN users u ON c.user_id = u.id 
-                                WHERE c.article_id = ? AND c.parent_id " . ($parentId ? "= ?" : "IS NULL") . " 
+                $query = $connect->prepare("SELECT c.id, c.content, c.created_at, u.username
+                                FROM comments c
+                                JOIN users u ON c.user_id = u.id
+                                WHERE c.article_id = ? AND c.parent_id " . ($parentId ? "= ?" : "IS NULL") . "
                                 ORDER BY c.created_at DESC");
 
                 if ($parentId) {
