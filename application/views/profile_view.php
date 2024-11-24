@@ -20,7 +20,7 @@
 
             <!-- Проверка прав на редактирование ролей -->
             <?php if ($data['permissions']['editPermission']): ?>
-                <a href="edit_roles.php" class="btn btn-warning mt-3">Edit Permissions</a>
+                <a href="/edit_permissions" class="btn btn-warning mt-3">Edit Permissions</a>
             <?php endif; ?>
 
             <!-- Проверка прав на бан пользователей -->

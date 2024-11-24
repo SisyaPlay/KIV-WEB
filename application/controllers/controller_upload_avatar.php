@@ -18,6 +18,7 @@ class Controller_Upload_Avatar extends Controller {
             if ($this->model->upload_avatar($user_id, $file)) {
                 $_SESSION['registered'] = 'success';
                 header("Location: /profile");
+                // header("Refresh:0");
             } else {
                 $_SESSION['massage'] = 'Ошибка при обновлении аватара.';
                 header("Location: /profile");

@@ -1,7 +1,7 @@
 <div class="main-container">
   <label class="center-label">News</label>
   <?php if ($_SESSION['allowCreate']): ?>
-      <button id="create-article-btn" onclick="window.location.href='create_article.php'">Создать</button>
+    <a href="/create_article" class="btn btn-primary">Создать</a>
 
   <?php else: ?>
 

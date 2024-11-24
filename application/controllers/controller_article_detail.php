@@ -27,5 +27,4 @@ class Controller_Article_Detail extends Controller {
         // Генерация представления
         $this->view->generate("article_detail_view.php", "template_view.php", $data);
     }
-
 }
