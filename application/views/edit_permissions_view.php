@@ -45,6 +45,9 @@
                             <td>
                                 <input type="checkbox" name="allowBan[<?php echo $r['id']; ?>]" value="1" <?php echo $r['allowBan'] ? 'checked' : ''; ?>>
                             </td>
+                            <td>
+                                <input type="checkbox" name="givePermission[<?php echo $r['id']; ?>]" value="1" <?php echo $r['givePermission'] ? 'checked' : ''; ?>>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

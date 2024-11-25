@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const content = document.getElementById('commentContent').value.trim(); // Текст комментария
 
         if (content) {
-            fetch('/add_comment', { // Указываем корректный маршрут
+            fetch('/article_detail/add_comment', { // Указываем корректный маршрут
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(error => console.error('Error:', error));
         } else {
-            alert('Введите текст комментария');
+            alert('Введите  комментария');
         }
     });
 });
@@ -72,7 +72,7 @@ function submitReply(button, parentId) {
 
     // Отправка комментария на сервер
     if (content) {
-        fetch('/add_comment', {
+        fetch('/article_detail/add_comment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -86,7 +86,7 @@ function submitReply(button, parentId) {
             })
             .catch(error => console.error('Error:', error));
     } else {
-        alert('Введите текст комментария');
+        alert('Введите  комментария');
     }
 }
 

@@ -5,7 +5,7 @@
             <!-- Аватар пользователя -->
             <div class="profile-pic">
                 <img src="<?php echo $_SESSION['picture']; ?>" alt="User Avatar" class="img-thumbnail"style="width: 322px; height: 322px;">
-                <form action="/upload_avatar" method="post" enctype="multipart/form-data" class="mt-3">
+                <form action="/profile/upload_avatar" method="post" enctype="multipart/form-data" class="mt-3">
                     <input type="file" name="avatar" accept="image/*" class="form-control">
                     <button type="submit" class="btn btn-primary mt-2">Change Avatar</button>
                 </form>
@@ -18,6 +18,10 @@
             <p>Email: <?php echo $data['user']['email']; ?></p>
             <p>Role: <?php echo $data['user']['role']; ?></p>
 
+            <?php if ($data['permissions']['givePermission']): ?>
+                <a href="/give_permission" class="btn btn-primary mt-3">Edit Permissions</a>
+            <?php endif; ?>
+
             <!-- Проверка прав на редактирование ролей -->
             <?php if ($data['permissions']['editPermission']): ?>
                 <a href="/edit_permissions" class="btn btn-warning mt-3">Edit Permissions</a>
@@ -25,7 +29,7 @@
 
             <!-- Проверка прав на бан пользователей -->
             <?php if ($data['permissions']['allowBan']): ?>
-                <a href="ban_users.php" class="btn btn-danger mt-3">Ban Users</a>
+                <a href="/ban_user" class="btn btn-danger mt-3">Ban Users</a>
             <?php endif; ?>
         </div>
     </div>
