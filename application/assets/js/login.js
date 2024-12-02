@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const signInBtn = document.getElementById('signInBtn');
     const loginDropdown = document.getElementById('loginDropdown');
     const form = document.getElementById('loginForm');  // Изменено на 'loginForm'
+    if (!form) {
+        return; // Прекращаем выполнение, если формы нет
+    }
     const fields = form.querySelectorAll('input');
     const usernameField = document.getElementById('username');
     const passwordField = document.getElementById('password');

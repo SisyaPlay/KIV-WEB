@@ -1,29 +1,29 @@
 <form id="signupForm" action="/register" method="post">
-    <label>Username</label>
+    <label><?php echo htmlspecialchars($data['translations']['username']); ?></label>
     <div class="input-wrapper">
-        <input type="text" name="username" id="username-" placeholder="Type your username">
+        <input type="text" name="username" id="username-" placeholder="<?php echo htmlspecialchars($data['translations']['typename']); ?>">
         <span class="error-message" id="username--error"></span>
     </div>
 
-    <label>e-mail</label>
+    <label><?php echo htmlspecialchars($data['translations']['email']); ?></label>
     <div class="input-wrapper">
-        <input type="email" name="email" id="email" placeholder="Type your email">
+        <input type="email" name="email" id="email" placeholder="<?php echo htmlspecialchars($data['translations']['typeemail']); ?>">
         <span class="error-message" id="email-error"></span>
     </div>
 
-    <label>Password</label>
+    <label><?php echo htmlspecialchars($data['translations']['password']); ?></label>
     <div class="input-wrapper">
-        <input type="password" name="password" id="password-" placeholder="Type your password">
+        <input type="password" name="password" id="password-" placeholder="<?php echo htmlspecialchars($data['translations']['typepass']); ?>">
         <span class="error-message" id="password--error"></span>
     </div>
 
-    <label>Confirm password</label>
+    <label><?php echo htmlspecialchars($data['translations']['comfirmpass']); ?></label>
     <div class="input-wrapper">
-        <input type="password" name="password_confirm" id="password_confirm" placeholder="Confirm your password">
+        <input type="password" name="password_confirm" id="password_confirm" placeholder="<?php echo htmlspecialchars($data['translations']['typecomfpass']); ?>">
         <span class="error-message" id="password_confirm-error"></span>
     </div>
 
-    <button type="submit">Sign up</button>
+    <button type="submit"><?php echo htmlspecialchars($data['translations']['signup']); ?></button>
 </form>
 
 <?php if (isset($_SESSION['registered'])): ?>

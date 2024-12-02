@@ -1,7 +1,7 @@
 <div class="main-container">
-  <label class="center-label">News</label>
+  <label class="center-label"><?php echo htmlspecialchars($data['translations']['news'])?></label>
   <?php if ($_SESSION['allowCreate']): ?>
-    <a href="/create_article" class="btn btn-primary">Создать</a>
+    <a href="/create_article" class="btn btn-primary"><?php echo htmlspecialchars($data['translations']['create'])?></a>
 
   <?php else: ?>
 

@@ -4,6 +4,7 @@ class Controller_Edit_Permissions extends Controller {
     public function __construct() {
         $this->model = new Model_Edit_Permissions();
         $this->view = new View();
+        $this->language = new Language();
     }
 
     public function action_index() {
@@ -28,9 +29,37 @@ class Controller_Edit_Permissions extends Controller {
         }
 
         // Получение всех ролей
-        $roles = $this->model->getAllRoles();
+        $data['roles'] = $this->model->getAllRoles();
+        $data['translations'] = [
+          'home' => $this->language->translate('home'),
+          'album' => $this->language->translate('album'),
+          'signin' => $this->language->translate('signin'),
+          'signup' => $this->language->translate('signup'),
+          'logout' => $this->language->translate('logout'),
+          'editroles' => $this->language->translate('editroles'),
+          'select' => $this->language->translate('select'),
+          'rolename' => $this->language->translate('rolename'),
+          'roleid' => $this->language->translate('roleid'),
+          'allowread' => $this->language->translate('allowread'),
+          'allowcreate' => $this->language->translate('allowcreate'),
+          'allowdelete' => $this->language->translate('allowdelete'),
+          'allowwritecomm' => $this->language->translate('allowwritecomm'),
+          'editpermissions' => $this->language->translate('editpermissions'),
+          'allowbanusers' => $this->language->translate('allowbanusers'),
+          'givepermissions' => $this->language->translate('givepermissions'),
+          'rolesnotfound' => $this->language->translate('rolesnotfound'),
+          'savechanges' => $this->language->translate('savechanges'),
+          'deleteroles' => $this->language->translate('deleteroles'),
+          'createrole' => $this->language->translate('createrole'),
+          'username' => $this->language->translate('username'),
+          'password' => $this->language->translate('password'),
+          'rememberme' => $this->language->translate('rememberme'),
+          'sumbit' => $this->language->translate('sumbit'),
+          'typepass' => $this->language->translate('typepass'),
+          'typename' => $this->language->translate('typename')
+        ];
         // Генерация страницы
-        $this->view->generate("edit_permissions_view.php", "template_view.php", $roles);
+        $this->view->generate("edit_permissions_view.php", "template_view.php", $data);
     }
 
     public function action_update_roles() {

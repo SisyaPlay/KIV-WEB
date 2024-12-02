@@ -11,16 +11,16 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <!-- Вкладки по центру -->
-            <div class="mx-auto order-0">
-                <ul class="navbar-nav" style="display: flex; justify-content: center; width: 100%;">
+            <div class="mx-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="/main">
-                            <i class="fas fa-home"></i> Home <!-- Иконка домика -->
+                            <i class="fas fa-home"></i> <?php echo htmlspecialchars($data['translations']['home'])?> <!-- Иконка домика -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/album">
-                            <i class="fas fa-images"></i> Album <!-- Иконка альбома -->
+                            <i class="fas fa-images"></i> <?php echo htmlspecialchars($data['translations']['album'])?> <!-- Иконка альбома -->
                         </a>
                     </li>
                 </ul>
@@ -32,38 +32,39 @@
                     <a class="nav-link" href="/profile" id="userProfileLink" aria-expanded="false">
                         <img src="<?php echo $_SESSION['picture'] ?>" alt="User Avatar" class="user-avatar" id="userAvatar" />
                     </a>
-                    <a href="/logout" class="btn btn-danger mt-2">Logout</a>
+                    <a href="/logout" class="btn btn-danger mt-2"><?php echo htmlspecialchars($data['translations']['logout'])?></a>
                 <?php else: ?>
-                    <a class="nav-link" href="#" id="signInBtn">Sign In</a>
+                    <a class="nav-link" href="#" id="signInBtn"><?php echo htmlspecialchars($data['translations']['signin'])?></a>
                     <div class="dropdown-login" id="loginDropdown" style="display: none;">
                         <div class="dropdown-login-content">
                             <form id="loginForm" action="/login" method="post">
                                 <input type="hidden" name="redirect_to" value="dropdown">
-                                <label for="username">Username:</label>
+                                <label for="username"><?php echo htmlspecialchars($data['translations']['username'])?>:</label>
                                 <div class="input-wrapper">
-                                    <input type="text" name="username" id="username" placeholder="Type your username">
+                                    <input type="text" name="username" id="username" placeholder="<?php echo htmlspecialchars($data['translations']['typename'])?>">
                                     <span class="error-message" id="username-error"></span>
                                 </div>
-                                <label for="password">Password:</label>
+                                <label for="password"><?php echo htmlspecialchars($data['translations']['password'])?>:</label>
                                 <div class="input-wrapper">
-                                    <input type="password" name="password" id="password" placeholder="Type your password">
+                                    <input type="password" name="password" id="password" placeholder="<?php echo htmlspecialchars($data['translations']['typepass'])?>">
                                     <span class="error-message" id="password-error"></span>
                                 </div>
 
                                 <div class="checkbox-container">
                                     <input type="checkbox" id="checkbox" name="checkbox">
-                                    <label for="checkbox" class="checkbox-container">Remember me</label>
+                                    <label for="checkbox" class="checkbox-container"><?php echo htmlspecialchars($data['translations']['rememberme'])?></label>
                                 </div>
 
-                                <button type="submit">Submit</button>
+                                <button type="submit"><?php echo htmlspecialchars($data['translations']['sumbit'])?></button>
                             </form>
                         </div>
                     </div>
-                    <a class="nav-link" href="/register">Sign Up</a>
+                    <a class="nav-link" href="/register"><?php echo htmlspecialchars($data['translations']['signup'])?></a>
                 <?php endif; ?>
-                <select class="form-select form-select-sm" id="languageSelect" aria-label="Language select">
-                    <option value="en">English</option>
-                    <option value="ru">Русский</option>
+                <!-- Выпадающий список выбора языка в основном меню -->
+                <select class="form-select form-select-sm" id="languageSelect" aria-label="Language select" onchange="changeLanguage(this.value)">
+                    <option value="en" <?php echo (isset($_SESSION['language']) && $_SESSION['language'] === 'en') ? 'selected' : ''; ?>>English</option>
+                    <option value="ru" <?php echo (isset($_SESSION['language']) && $_SESSION['language'] === 'ru') ? 'selected' : ''; ?>>Русский</option>
                 </select>
             </div>
         </div>
@@ -82,27 +83,27 @@
                     <a href="/profile">
                         <img src="<?php echo $_SESSION['picture'] ?>" alt="User Avatar" class="user-avatar" id="userAvatar" style="width: 80px; height: 80px; border-radius: 50%;">
                     </a>
-                    <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+                    <a href="/logout" class="btn btn-danger mt-3"><?php echo htmlspecialchars($data['translations']['logout'])?></a>
                 </div>
             <?php else: ?>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a class="nav-link" href="/login">Log In</a>
+                        <a class="nav-link" href="/login"><?php echo htmlspecialchars($data['translations']['signin'])?></a>
                     </li>
                     <li class="list-group-item">
-                        <a class="nav-link" href="/register">Sign Up</a>
+                        <a class="nav-link" href="/register"><?php echo htmlspecialchars($data['translations']['signup'])?></a>
                     </li>
                 </ul>
             <?php endif; ?>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <a class="nav-link" href="/main">
-                            <i class="fas fa-home"></i> Home
+                            <i class="fas fa-home"></i> <?php echo htmlspecialchars($data['translations']['home'])?>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <a class="nav-link" href="/album">
-                            <i class="fas fa-images"></i> Album
+                            <i class="fas fa-images"></i> <?php echo htmlspecialchars($data['translations']['album'])?>
                         </a>
                     </li>
                 </ul>
@@ -110,10 +111,11 @@
 
         <!-- Комбобокс выбора языка внизу -->
         <div class="mt-3">
-            <select class="form-select form-select-sm" id="languageSelect" aria-label="Language select">
-                <option value="en">English</option>
-                <option value="ru">Русский</option>
-            </select>
+          <!-- Выпадающий список выбора языка в мобильном меню -->
+          <select class="form-select form-select-sm" id="mobileLanguageSelect" aria-label="Language select" onchange="changeLanguage(this.value)">
+              <option value="en" <?php echo (isset($_SESSION['language']) && $_SESSION['language'] === 'en') ? 'selected' : ''; ?>>English</option>
+              <option value="ru" <?php echo (isset($_SESSION['language']) && $_SESSION['language'] === 'ru') ? 'selected' : ''; ?>>Русский</option>
+          </select>
         </div>
     </div>
 </div>
@@ -121,3 +123,15 @@
 <!-- Подключите Bootstrap JS и CSS внизу вашей страницы -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('languageSelect').addEventListener('change', function () {
+        const selectedLanguage = this.value;
+        fetch('/language/set', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ language: selectedLanguage })
+        }).then(() => {
+          location.reload();
+        });
+    });
+</script>

@@ -5,7 +5,7 @@ class Language {
 
     public function __construct() {
         // Проверяем, есть ли в сессии выбранный язык, если нет — выбираем по умолчанию
-        $this->language = isset($_SESSION['language']) ? $_SESSION['language'] : 'ru';
+        $this->language = isset($_SESSION['language']) ? $_SESSION['language'] : 'en';
         $this->loadTranslations();
     }
 

@@ -1,4 +1,3 @@
-<!-- /application/views/article_detail_view.php -->
 <div class="main-container">
     <h1 class="center-label"><?php echo htmlspecialchars($data['article']['title']); ?></h1>
 
@@ -28,28 +27,27 @@
     <?php if ($data['article']): ?>
         <p class="article-content"><?php echo $data['article']['content']; ?></p>
     <?php else: ?>
-        <p>Статья не найдена.</p>
+        <p><?php echo htmlspecialchars($data['translations']['noarticle']); ?></p>
     <?php endif; ?>
 
     <!-- Секция комментариев -->
     <div class="comments-section">
-        <h3 class="center-label">Комментарии</h3>
+        <h3 class="center-label"><?php echo htmlspecialchars($data['translations']['comment']); ?></h3>
 
         <?php if ($data['permissions']['allowWriteComm']): ?>
             <input type="hidden" id="article_id" value="<?php echo $data['article_id']; ?>">
-            <textarea class="form-control" id="commentContent" rows="2" placeholder="Напишите комментарий..."></textarea>
-            <a href="#" id="submitComment" class="btn btn-primary mt-2">Отправить</a>
+            <textarea class="form-control" id="commentContent" rows="2" placeholder="<?php echo htmlspecialchars($data['translations']['putcomment']); ?>"></textarea>
+            <a href="#" id="submitComment" class="btn btn-primary mt-2"><?php echo htmlspecialchars($data['translations']['putcomment']); ?></a>
         <?php elseif (!isset($_SESSION['user_id'])): ?>
-            <p><a href="/login">Войдите</a>, чтобы оставить комментарий.</p>
+            <p><a href="/login"><?php echo htmlspecialchars($data['translations']['login']); ?></a><?php echo htmlspecialchars($data['translations']['loginforcomment']); ?></p>
         <?php else: ?>
-            <p>У вас нет прав для добавления комментариев.</p>
+            <p><?php echo htmlspecialchars($data['translations']['notallowcomment']); ?></p>
         <?php endif; ?>
 
         <!-- Список комментариев -->
         <div class="comments-list">
             <?php
-            function renderComments($comments, $parentId = null, $level = 0, $allowWriteComm = false)
-            {
+            function renderComments($comments, $translation, $parentId = null, $level = 0, $allowWriteComm = false) {
                 foreach ($comments as $comment) {
                     // Отображаем только комментарии с текущим parent_id
                     if ($comment['parent_id'] == $parentId) {
@@ -59,35 +57,35 @@
                         echo "<small style='color: gray;'>" . $comment['created_at'] . "</small>";
 
                         if ($allowWriteComm) {
-                            echo "<button type='button' class='btn btn-link reply-button' onclick='showReplyBox(this)'>➡️ Ответить</button>";
+                            echo "<button type='button' class='btn btn-link reply-button' onclick='showReplyBox(this)'>➡️ " . htmlspecialchars($translation['reply']) . "</button>";
                         }
 
                         echo "<div class='reply-arrow' style='display:none;'>➤</div>";
                         echo "<div style='display:none;' class='reply-container'>";
-                        echo "<textarea class='form-control reply-textarea' rows='1' placeholder='Ответить на комментарий...' style='resize: none;'></textarea>";
-                        echo "<button type='button' class='btn btn-link submit-reply' style='display:none;' onclick='submitReply(this, " . $comment['id'] . ")'>Отправить</button>";
+                        echo "<textarea class='form-control reply-textarea' rows='1' placeholder='" . htmlspecialchars($translation['replycomment']) . "' style='resize: none;'></textarea>";
+                        echo "<button type='button' class='btn btn-link submit-reply' style='display:none;' onclick='submitReply(this, " . $comment['id'] . ")'>" . htmlspecialchars($translation['send']) . "</button>";
                         echo "</div>";
 
                         echo "</div>";
 
                         // Рекурсивно отображаем вложенные комментарии
-                        renderComments($comments, $comment['id'], $level + 1, $allowWriteComm);
+                        renderComments($comments, $translation, $comment['id'], $level + 1, $allowWriteComm);
                     }
                 }
             }
+
 
             if ($data['comments']->num_rows > 0) {
                 // Преобразуем результат запроса в массив
                 $commentsArray = $data['comments']->fetch_all(MYSQLI_ASSOC);
 
                 // Вызываем функцию рендеринга
-                renderComments($commentsArray, null, 0, $data['permissions']['allowWriteComm']);
+                renderComments($commentsArray, $data['translations'], null, 0, $data['permissions']['allowWriteComm']);
             } else {
-                echo "<p>Пока нет комментариев.</p>";
+                echo "<p>" . htmlspecialchars($data['translations']['nocomments']) . "</p>";
             }
             ?>
         </div>
-
     </div>
 </div>
 

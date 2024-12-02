@@ -4,6 +4,7 @@ class Controller_Register extends Controller {
     public function __construct() {
         $this->model = new Model_Register();
         $this->view = new View();
+        $this->language = new Language();
     }
 
     public function action_index() {
@@ -32,6 +33,26 @@ class Controller_Register extends Controller {
                 exit();
             }
         }
-        $this->view->generate('register_view.php', 'template_view.php');
+        $data['translations'] = [
+          'news' => $this->language->translate('news'),
+          'create' => $this->language->translate('create'),
+          'home' => $this->language->translate('home'),
+          'album' => $this->language->translate('album'),
+          'signin' => $this->language->translate('signin'),
+          'signup' => $this->language->translate('signup'),
+          'logout' => $this->language->translate('logout'),
+          'username' => $this->language->translate('username'),
+          'password' => $this->language->translate('password'),
+          'email' => $this->language->translate('email'),
+          'typename' => $this->language->translate('typename'),
+          'typepass' => $this->language->translate('typepass'),
+          'typeemail' => $this->language->translate('comfirmpass'),
+          'typecomfpass' => $this->language->translate('typecomfpass'),
+          'comfirmpass' => $this->language->translate('comfirmpass'),
+          'signup' => $this->language->translate('signup'),
+          'rememberme' => $this->language->translate('rememberme'),
+          'sumbit' => $this->language->translate('sumbit')
+        ];
+        $this->view->generate('register_view.php', 'template_view.php', $data);
     }
 }

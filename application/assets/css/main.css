@@ -79,17 +79,27 @@ header {
 
 /* Стили для контейнера с чекбоксом и лейблом */
 .checkbox-container {
-    padding: 5px 5px;
-    font-weight: normal;
-    display: flex;
-    left: 0;
-    margin-left: -125px;
+    padding: 5px; /* Отступы вокруг контейнера */
+    font-weight: normal; /* Обычный вес текста */
+    display: flex; /* Flexbox для выравнивания элементов в одну строку */
+    align-items: center; /* Выравнивание по вертикали */
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    gap: 3px; /* Меньшее расстояние между чекбоксом и текстом */
 }
 
+/* Стили для чекбокса */
 .checkbox-container input[type="checkbox"] {
-    margin-right: 5px;
-    margin-left: 0;
+    width: 14px;
+    margin: 0; /* Убираем лишние отступы */
+    padding: 0; /* Убираем внутренние отступы */
 }
+
+/* Стили для текста лейбла */
+.checkbox-container label {
+    margin: 0; /* Убираем лишние отступы */
+    white-space: nowrap; /* Гарантируем, что текст остается в одной строке */
+}
+
 
 /* Стилизация формы */
 form {
@@ -469,8 +479,27 @@ input.error:focus {
 }
 
 .navbar .navbar-nav.mx-auto {
-    flex: 1; /* Позволяем центровым элементам занимать доступное пространство */
-    justify-content: center; /* Центруем элементы по горизонтали */
+    flex: 1; /* Центруем элементы по горизонтали */
+    justify-content: center;
+}
+
+.nav-link, .btn {
+    white-space: nowrap; /* Запрещаем перенос текста */
+}
+
+.navbar-nav.ml-auto {
+    display: flex;
+    align-items: center; /* Выравниваем аватарки и кнопки */
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.offcanvas-body .list-group-item {
+    text-align: center; /* Центрирование текста в мобильном меню */
 }
 
 .fullscreen-overlay {
@@ -525,7 +554,14 @@ input.error:focus {
 
     .background {
         background: none;
-        background-color: black;
+        background: rgba(128, 128, 128, 0.5);
+    }
+
+    .note-editable {
+        max-height: 100% - 65px;
+        overflow-y: auto;  /* Прокрутка, если контент превышает высоту */
+        background-color: transparent;
+        box-shadow: black;
     }
 }
 
@@ -666,4 +702,54 @@ input.error:focus {
 }
 .prev:hover, .next:hover {
     color: #bbb;
+}
+
+.full-width-form {
+    width: 100%; /* Растягивает форму на весь контейнер */
+    max-width: 100%; /* Убирает ограничения по ширине */
+    background: none; /* Убирает фон */
+    padding: 0; /* Убирает отступы */
+    border: none; /* Убирает границы */
+    box-shadow: none; /* Убирает тени */
+}
+
+.full-width-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.full-width-form .input-wrapper {
+    margin-bottom: 16px;
+}
+
+.full-width-form input,
+.full-width-form textarea {
+    width: 100%; /* Поля ввода занимают всю ширину */
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Изменяем фон, границу и шрифт редактора */
+.note-editor {
+    border: 1px solid #ccc;
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Настраиваем высоту поля ввода */
+.note-editable {
+    min-height: 200px; /* Минимальная высота */
+    overflow-y: auto;  /* Прокрутка, если контент превышает высоту */
+    background-color: transparent;
+}
+
+/* Изменяем стиль панели инструментов */
+.note-toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }

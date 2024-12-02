@@ -1,13 +1,13 @@
 <div class="main-container">
-    <label class="center-label">Изменить роль пользователей</label>
+    <label class="center-label"><?php echo htmlspecialchars($data['translations']['changerole']); ?></label>
 
     <form action="/give_permission/update_roles" method="post" class="role-form">
         <table border="1" class="edit-role-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Никнейм</th>
-                    <th>Роль</th>
+                    <th><?php echo htmlspecialchars($data['translations']['id']); ?></th>
+                    <th><?php echo htmlspecialchars($data['translations']['username']); ?></th>
+                    <th><?php echo htmlspecialchars($data['translations']['role']); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
                                             </option>
                                         <?php endforeach; ?>
                                     <?php else: ?>
-                                        <option disabled>Роли не найдены</option>
+                                        <option disabled><?php echo htmlspecialchars($data['translations']['rolesnotfound']); ?></option>
                                     <?php endif; ?>
                                 </select>
                             </td>
@@ -35,11 +35,11 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="3">Пользователи не найдены</td>
+                        <td colspan="3"><?php echo htmlspecialchars($data['translations']['usernotfound']); ?></td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <button type="submit" class="btn btn-primary"><?php echo htmlspecialchars($data['translations']['savechanges']); ?></button>
     </form>
 </div>

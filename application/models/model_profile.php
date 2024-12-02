@@ -75,4 +75,62 @@ class Model_Profile extends Model {
         }
         return false;
       }
+      public function get_articles($userName) {
+          $query = $this->mysql->prepare("SELECT id, title FROM articles WHERE author = ?");
+          $query->bind_param("s", $userName);
+          $query->execute();
+          return $query->get_result()->fetch_all();
+      }
+
+      public function delete_article($id) {
+          $getPictures = $this->mysql->prepare("SELECT picture FROM article_pictures WHERE article_id = ?");
+          $getPictures->bind_param("i", $id);
+          $getPictures->execute();
+          $images = $getPictures->get_result()->fetch_all();
+          $getPictures->close();
+
+          foreach ($images as $image) {
+              $filePath = $image['picture'];
+              if (file_exists($filePath)) {
+                  unlink($filePath); // Удаляем файл
+              }
+          }
+
+          $deletePictures = $this->mysql->prepare("DELETE FROM article_pictures WHERE article_id = ?");
+          $deletePictures->bind_param("i", $id);
+          $deletePictures->execute();
+          $deletePictures->close();
+
+          // Удаляем все дочерние комментарии
+          // Получаем дочерние комментарии
+          $getChildComments = $this->mysql->prepare("SELECT id FROM comments WHERE parent_id IN (SELECT id FROM comments WHERE article_id = ?)");
+          $getChildComments->bind_param("i", $id);
+          $getChildComments->execute();
+          $result = $getChildComments->get_result();
+          $childComments = $result->fetch_all(MYSQLI_ASSOC);
+          $getChildComments->close();
+
+          // Удаляем дочерние комментарии
+          foreach ($childComments as $child) {
+              $deleteChild = $this->mysql->prepare("DELETE FROM comments WHERE id = ?");
+              $deleteChild->bind_param("i", $child['id']);
+              $deleteChild->execute();
+              $deleteChild->close();
+          }
+
+          // Удаляем комментарии, связанные с article_id
+          $deleteComments = $this->mysql->prepare("DELETE FROM comments WHERE article_id = ?");
+          $deleteComments->bind_param("i", $id);
+          $deleteComments->execute();
+          $deleteComments->close();
+
+
+          // Удаляем статью из базы данных
+          $deleteQuery = $this->mysql->prepare("DELETE FROM articles WHERE id = ?");
+          $deleteQuery->bind_param("i", $id);
+          $deleteQuery->execute();
+          $deleteQuery->close();
+
+          return true;
+      }
 }

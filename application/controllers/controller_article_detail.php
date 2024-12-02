@@ -1,19 +1,15 @@
 <?php
 
 class Controller_Article_Detail extends Controller {
-    private $language;
+    protected $language;
 
     public function __construct() {
         $this->model = new Model_Article_Detail();
         $this->view = new View();
-
-        // Инициализация объекта Language
         $this->language = new Language();
     }
 
     public function action_index() {
-
-
         // Получаем ID статьи из GET-запроса
         $articleId = $_GET['id'] ?? null;
         $user_id = $_SESSION['user_id'] ?? null;
@@ -33,11 +29,26 @@ class Controller_Article_Detail extends Controller {
 
         // Переводы для вывода в шаблоне
         $data['translations'] = [
-            'comments' => $this->language->translate('comments'),
+            'comment' => $this->language->translate('comment'),
             'putcomment' => $this->language->translate('putcomment'),
             'loginforcomment' => $this->language->translate('loginforcomment'),
             'notallowcomment' => $this->language->translate('notallowcomment'),
-            'nocomments' => $this->language->translate('nocomments')
+            'nocomments' => $this->language->translate('nocomments'),
+            'reply' => $this->language->translate('reply'),
+            'login' => $this->language->translate('login'),
+            'replycomment' => $this->language->translate('replycomment'),
+            'send' => $this->language->translate('send'),
+            'home' => $this->language->translate('home'),
+            'album' => $this->language->translate('album'),
+            'signin' => $this->language->translate('signin'),
+            'signup' => $this->language->translate('signup'),
+            'logout' => $this->language->translate('logout'),
+            'username' => $this->language->translate('username'),
+            'password' => $this->language->translate('password'),
+            'rememberme' => $this->language->translate('rememberme'),
+            'sumbit' => $this->language->translate('sumbit'),
+            'typepass' => $this->language->translate('typepass'),
+            'typename' => $this->language->translate('typename')
         ];
 
         // Генерация представления
