@@ -13,7 +13,9 @@
 <?php include 'application/assets/php/navbar.php' ?>
 <br>
 <?php include 'application/views/' . $content_view; ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
 <script src="application/assets/js/bootstrap.min.js"></script>
+
 <script src="application/assets/js/fontawesome.js"></script>
 </body>
 </html>

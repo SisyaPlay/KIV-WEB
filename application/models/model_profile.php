@@ -75,6 +75,7 @@ class Model_Profile extends Model {
         }
         return false;
       }
+
       public function get_articles($userName) {
           $query = $this->mysql->prepare("SELECT id, title FROM articles WHERE author = ?");
           $query->bind_param("s", $userName);
@@ -91,7 +92,7 @@ class Model_Profile extends Model {
 
           foreach ($images as $image) {
               $filePath = $image['picture'];
-              if (file_exists($filePath)) {
+              if (!empty($filePath) && file_exists($filePath)) {
                   unlink($filePath); // Удаляем файл
               }
           }

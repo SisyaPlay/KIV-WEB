@@ -584,6 +584,16 @@ input.error:focus {
     margin: 5px 0; /* Отступы для параграфов */
 }
 
+.comments-list ol {
+    color: white; /* Цвет текста комментариев */
+    margin: 5px 0; /* Отступы для параграфов */
+}
+
+.comments-list ul {
+    color: white; /* Цвет текста комментариев */
+    margin: 5px 0; /* Отступы для параграфов */
+}
+
 .reply-button {
     color: #007bff; /* Цвет кнопки ответа */
     cursor: pointer; /* Указатель для курсора */
@@ -621,6 +631,15 @@ input.error:focus {
 }
 
 .main-container p {
+    color: white; /* Устанавливаем цвет текста белым */
+    margin-bottom: 10px; /* Добавляем отступ между параграфами */
+}
+
+.main-container ol {
+    color: white; /* Устанавливаем цвет текста белым */
+    margin-bottom: 10px; /* Добавляем отступ между параграфами */
+}
+.main-container ul {
     color: white; /* Устанавливаем цвет текста белым */
     margin-bottom: 10px; /* Добавляем отступ между параграфами */
 }

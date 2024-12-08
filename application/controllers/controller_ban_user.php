@@ -34,14 +34,13 @@ class Controller_Ban_User extends Controller {
           'rememberme' => $this->language->translate('rememberme'),
           'sumbit' => $this->language->translate('sumbit'),
           'typepass' => $this->language->translate('typepass'),
-          'typename' => $this->language->translate('typename')
-        ];,
-        'username' => $this->language->translate('username'),
-        'password' => $this->language->translate('password'),
-        'rememberme' => $this->language->translate('rememberme'),
-        'sumbit' => $this->language->translate('sumbit'),
-        'typepass' => $this->language->translate('typepass'),
-        'typename' => $this->language->translate('typename')
+          'typename' => $this->language->translate('typename'),
+          'username' => $this->language->translate('username'),
+          'password' => $this->language->translate('password'),
+          'rememberme' => $this->language->translate('rememberme'),
+          'sumbit' => $this->language->translate('sumbit'),
+          'typepass' => $this->language->translate('typepass'),
+          'typename' => $this->language->translate('typename')];
 
         // Генерируем представление с переданными данными
         $this->view->generate("ban_user_view.php", "template_view.php", $data);

@@ -1,4 +1,4 @@
-<link href="application/assets/css/summernote.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
 <div class="main-container">
   <form class="full-width-form" action="/create_article" method="post" enctype="multipart/form-data">
@@ -47,23 +47,23 @@ if(@$_SESSION['massage']) {
 unset($_SESSION['massage']);
 ?>
 
-<script src="application/assets/js/summernote.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
   $(document).ready(function () {
-       const isMobile = window.matchMedia("(max-width: 992px)").matches;
-       const mobileHeight = window.innerHeight - 1000;
-       $("#summernote").summernote({
-           height: isMobile ? mobileHeight : 362,
-           toolbar: [
-               ['style', ['style']],
-               ['font', ['bold', 'underline', 'clear']],
-               ['color', ['color']],
-               ['para', ['ul', 'ol', 'paragraph']],
-               ['table', ['table']],
-               ['insert', ['link']]
-           ]
-       });
-   });
+    const isMobile = window.matchMedia("(max-width: 992px)").matches;
+    const mobileHeight = window.innerHeight - 1000;
+
+    $("#summernote").summernote({
+        height: isMobile ? mobileHeight : 362, // Высота редактора
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+        ]
+    });
+  });
  </script>
